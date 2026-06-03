@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerPath BK - Ibu Ilma Mauliani</title>
+  
+  <!-- Tailwind CSS Integration -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom styling for sleek aesthetic */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.4s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white; color: black; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-violet-500/10 select-none">
+
+  <!-- HEADER NAVIGATION -->
+  <header class="no-print sticky top-0 z-40 w-full border-b border-slate-100 bg-white/85 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('dashboard')">
+        <div class="h-9 w-9 bg-slate-900 text-white rounded-xl flex items-center justify-center font-serif text-lg font-bold shadow-sm">
+          CP
+        </div>
+        <div>
+          <h1 class="font-sans font-extrabold text-sm text-slate-900 tracking-tight leading-none flex items-center gap-1.5">
+            CareerPath BK
+            <span class="text-[9px] px-1.5 py-0.5 bg-violet-50 text-violet-600 rounded-md font-bold uppercase tracking-wider">v1.1</span>
+          </h1>
+          <p class="text-[10px] text-slate-500 font-medium">Bimbingan Karir Ibu Ilma</p>
+        </div>
+      </div>
+
+      <!-- DESKTOP NAV -->
+      <nav class="hidden md:flex items-center space-x-1">
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-3 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer flex items-center space-x-1.5 bg-slate-900 text-white shadow-xs">
+          <i data-lucide="compass" class="h-4 w-4"></i>
+          <span>Dashboard</span>
+        </button>
+        <button onclick="switchTab('bimbingan')" id="nav-bimbingan" class="nav-btn px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-xl transition-all cursor-pointer flex items-center space-x-1.5">
+          <i data-lucide="file-text" class="h-4 w-4"></i>
+          <span>Form Bimbingan</span>
+        </button>
+        <button onclick="switchTab('test')" id="nav-test" class="nav-btn px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-xl transition-all cursor-pointer flex items-center space-x-1.5">
+          <i data-lucide="sparkles" class="h-4 w-4"></i>
+          <span>Tes Minat RIASEC</span>
+        </button>
+        <button onclick="switchTab('chat')" id="nav-chat" class="nav-btn px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-xl transition-all cursor-pointer flex items-center space-x-1.5">
+          <i data-lucide="message-square" class="h-4 w-4"></i>
+          <span>Tanya Guru BK</span>
+        </button>
+        <button onclick="switchTab('eksplorasi')" id="nav-eksplorasi" class="nav-btn px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-xl transition-all cursor-pointer flex items-center space-x-1.5">
+          <i data-lucide="grid" class="h-4 w-4"></i>
+          <span>Eksplorasi Karir</span>
+        </button>
+        <button onclick="switchTab('panel-guru')" id="nav-panel-guru" class="nav-btn px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-xl transition-all cursor-pointer flex items-center space-x-1.5 border border-dashed border-slate-200">
+          <i data-lucide="lock" class="h-4 w-4 text-violet-500"></i>
+          <span>Panel Guru BK</span>
+        </button>
+      </nav>
+
+      <!-- MOBILE NAV TRIGGER (MODAL SWITCHER) -->
+      <div class="md:hidden">
+        <select onchange="switchTab(this.value)" id="mobile-nav-select" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 outline-none">
+          <option value="dashboard" selected>🧭 Dashboard</option>
+          <option value="bimbingan">📄 Form Bimbingan</option>
+          <option value="test">✨ Tes Minat RIASEC</option>
+          <option value="chat">💬 Tanya Guru BK</option>
+          <option value="eksplorasi">🎛️ Eksplorasi Karir</option>
+          <option value="panel-guru">🔒 Panel Guru BK</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-8">
+    
+    <!-- ==============================================
+         TAB 1: DASHBOARD
+         ============================================== -->
+    <div id="tab-dashboard" class="tab-content active space-y-12">
+      <!-- Welcome Banner Card -->
+      <div class="relative overflow-hidden bg-slate-900 text-white rounded-[32px] p-6 sm:p-10 shadow-xl flex flex-col md:flex-row items-center gap-8">
+        <div class="space-y-4 md:max-w-2xl text-left">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 bg-white/10 rounded-full text-xs font-bold text-violet-300">
+            <i data-lucide="sparkles" class="h-3.5 w-3.5"></i>
+            <span>Ruang Konseling Karir Terpadu di CodePen</span>
+          </div>
+          <h2 class="font-serif italic font-normal text-3xl sm:text-4xl text-slate-100 leading-tight">
+            "Temukan Arah Langkah Terbaik Menjemput Karir Impianmu"
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+            Selamat datang di <strong>CareerPath BK</strong>, ruang aman bagi seluruh siswa bimbingan untuk mengenali diri, menyusun strategi belajar, dan mengeksplorasi pilihan masa depan. Dirancang penuh kasih oleh <strong>Ibu Ilma Mauliani, S.Pd.</strong>
+          </p>
+        </div>
+        <div class="md:ml-auto shrink-0 relative flex items-center justify-center">
+          <div class="h-32 w-32 rounded-3xl bg-slate-800 border-2 border-white/10 shadow-lg flex items-center justify-center font-serif text-violet-400 text-4xl font-bold select-none">
+            BK
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Grid Selection -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div onclick="switchTab('bimbingan')" class="bg-white border border-slate-100 p-6 rounded-3xl shadow-xs space-y-4 hover:shadow-md transition-all active:scale-[0.99] cursor-pointer text-left">
+          <div class="h-10 w-10 bg-violet-50 text-violet-500 rounded-xl flex items-center justify-center shadow-xs">
+            <i data-lucide="file-text" class="h-5 w-5"></i>
+          </div>
+          <div class="space-y-1">
+            <h3 class="font-sans font-bold text-sm text-slate-800">Formulir Curhat Bimbingan</h3>
+            <p class="text-slate-500 text-xs leading-relaxed font-normal">
+              Punya kegalauan memilih karir atau bingung arah masa depan? Utarakan di sini, aman, rahasia, dan mendapat tanggapan solutif secara instan.
+            </p>
+          </div>
+        </div>
+
+        <div onclick="switchTab('test')" class="bg-white border border-slate-100 p-6 rounded-3xl shadow-xs space-y-4 hover:shadow-md transition-all active:scale-[0.99] cursor-pointer text-left">
+          <div class="h-10 w-10 bg-indigo-50 text-indigo-500 rounded-xl flex items-center justify-center shadow-xs">
+            <i data-lucide="sparkles" class="h-5 w-5"></i>
+          </div>
+          <div class="space-y-1">
+            <h3 class="font-sans font-bold text-sm text-slate-800">Tes Minat Bakat RIASEC</h3>
+            <p class="text-slate-500 text-xs leading-relaxed font-normal">
+              Kenali minat karir Holland Codes (Realistic, Investigative, Artistic, Social, Enterprising, Conventional) lewat tes interaktif berbobot.
+            </p>
+          </div>
+        </div>
+
+        <div onclick="switchTab('eksplorasi')" class="bg-white border border-slate-100 p-6 rounded-3xl shadow-xs space-y-4 hover:shadow-md transition-all active:scale-[0.99] cursor-pointer text-left">
+          <div class="h-10 w-10 bg-emerald-50 text-emerald-500 rounded-xl flex items-center justify-center shadow-xs">
+            <i data-lucide="grid" class="h-5 w-5"></i>
+          </div>
+          <div class="space-y-1">
+            <h3 class="font-sans font-bold text-sm text-slate-800">Eksplorasi Peta Karir</h3>
+            <p class="text-slate-500 text-xs leading-relaxed font-normal">
+              Buka ratusan opsi kerja era modern lengkap dengan deskripsi fungsional, taksiran upah, dan jalur perkuliahan yang searah.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Conversation Box with Ibu Ilma -->
+      <div class="bg-white border border-slate-100 rounded-3xl p-6 sm:p-10 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div class="space-y-3 text-left">
+          <h3 class="font-serif italic font-normal text-2xl text-slate-800">Kontak Privat & Chat Langsung</h3>
+          <p class="text-xs sm:text-base text-slate-650 leading-relaxed font-normal max-w-xl">
+            Jangan ragu untuk menghubungi Saya jika kamu butuh konsultasi privat langsung, mau curhat masalah karir/kuliah, atau butuh bantuan koordinasi dengan orang tua. Pesanmu dijamin 100% aman dan rahasia!
+          </p>
+
+          <!-- Safe guidance placeholder -->
+          <div class="bg-violet-500/10 border border-violet-100/50 rounded-2xl p-4 mt-2 text-xs text-violet-900 leading-relaxed font-normal text-left max-w-xl">
+            💡 <strong>Sapaan Otomatis dari Ibu Ilma:</strong> Setelah Anda mengirim pesan sopan terlampir, Ibu Ilma akan merespons hangat dengan sapaan bimbingan: <br />
+            <span class="italic font-serif text-slate-700 block mt-1.5 pl-3 border-l-2 border-violet-400">
+              "Halo Nak, selamat datang di Ruang Bimbingan Konseling (BK) Karir. Saya Ibu Ilma Mauliani, Konselor Karir Anda. Di sini kamu bebas mengutarakan kebingungan, impian, atau bahkan kekhawatiranmu seputar masa depan tanpa takut dihakimi. Apa yang sedang memenuhi kepalamu saat ini?"
+            </span>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto shrink-0">
+          <a
+            href="https://wa.me/6285283725745?text=Assalamu%27alaikum%20wr.%20wb.%20Ibu%20Ilma%2C%20mohon%20maaf%20mengganggu%20waktunya.%20Saya%20siswa%20bimbingan%20ingin%20berkonsultasi%20mengenai%20karir%20dan%20perencanaan%20masa%20depan%20saya%20melalui%20program%20CareerPath%20BK.%20Apakah%20kiranya%20Ibu%20ada%20waktu%20luang%20untuk%20berdiskusi%3F%20Terima%20kasih%20banyak%20sebelumnya%2C%20Ibu."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center space-x-3 px-6 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm rounded-2xl shadow-lg shadow-emerald-55/10 active:scale-95 transition-all w-full sm:w-auto cursor-pointer"
+          >
+            <i class="fab fa-whatsapp h-5 w-5"></i>
+            <span>WhatsApp Ibu Ilma</span>
+          </a>
+
+          <a
+            href="mailto:ilmamaulianiakbar@gmail.com?subject=Konseling%20Karir%20Siswa%20-%20CareerPath%20BK&body=Assalamu%27alaikum%20wr.%20wb.%20Ibu%20Ilma%2C%20mohon%20maaf%20mengganggu%20waktunya.%20Saya%20siswa%20bimbingan%20ingin%20berkonsultasi%20mengenai%20karir%20dan%20perencanaan%20masa%20depan%20saya%20melalui%20program%20CareerPath%20BK.%20Apakah%20kiranya%20Ibu%20ada%20waktu%20luang%20untuk%20berdiskusi%3F%20Terima%20kasih%20banyak%2520sebelumnya%252C%2520Ibu."
+            class="flex items-center justify-center space-x-3 px-6 py-4 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-sm rounded-2xl shadow-xs active:scale-95 transition-all w-full sm:w-auto cursor-pointer"
+          >
+            <i data-lucide="mail" class="h-5 w-5 text-violet-500"></i>
+            <span>Email Ibu Ilma</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ==============================================
+         TAB 2: BIMBINGAN FORMULIR / CURHAT
+         ============================================== -->
+    <div id="tab-bimbingan" class="tab-content space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Form Left Section -->
+        <div class="lg:col-span-5 space-y-6 text-left">
+          <div class="space-y-2">
+            <span class="px-2.5 py-0.5 bg-violet-50 text-violet-700 rounded-md font-extrabold text-[10px] uppercase">Formulir Bimbingan</span>
+            <h2 class="font-sans font-extrabold text-3xl text-slate-800 tracking-tight">Keluarkan Semua Kebingunganmu</h2>
+            <p class="text-xs text-slate-500 leading-relaxed font-normal">
+              Isi data diri sederhanamu dan ceritakan keraguanmu seputar studi, cita-cita, atau tantangan belajarmu. Program cerdas kami akan menganalisis secara psikologis dan merancang draf saran bimbingan instan.
+            </p>
+          </div>
+          
+          <div class="bg-indigo-50/40 border border-indigo-100 rounded-2xl p-5 space-y-3.5 text-xs text-slate-650">
+            <h4 class="font-bold text-slate-800 flex items-center gap-1.5">
+              <i data-lucide="check-circle" class="h-4 w-4 text-indigo-500"></i>
+              <span>Keuntungan Formulir Online BK:</span>
+            </h4>
+            <ul class="space-y-2.5 pl-1.5 font-medium">
+              <li class="flex items-start gap-1.5">📌 <span class="pl-1">Dapat diisi dari rumah kapan saja</span></li>
+              <li class="flex items-start gap-1.5">🔒 <span class="pl-1">Kerahasiaan data terjamin di server aman</span></li>
+              <li class="flex items-start gap-1.5">💡 <span class="pl-1">Menyusun kerangka rencana aksi praktis</span></li>
+              <li class="flex items-start gap-1.5">📈 <span class="pl-1">Draf terekam utuh pada panel guru bimbingan</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Form Right Card / Submit Engine -->
+        <div class="lg:col-span-7 bg-white border border-slate-100 rounded-3xl p-6 sm:p-10 shadow-sm text-left">
+          
+          <div id="counseling-form-block" class="space-y-6">
+            <form onsubmit="submitCounseling(event)" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="text-xs font-bold text-slate-600" for="curhat-name">Nama Lengkap</label>
+                  <input type="text" id="curhat-name" required placeholder="Budi Santoso" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/10 focus:border-violet-500">
+                </div>
+                <div class="space-y-1">
+                  <label class="text-xs font-bold text-slate-600" for="curhat-kelas">Kelas & Peminatan</label>
+                  <input type="text" id="curhat-kelas" required placeholder="XII IPA 1" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/10 focus:border-violet-500">
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <label class="text-xs font-bold text-slate-600" for="curhat-usia">Usia (Tahun)</label>
+                <input type="number" id="curhat-usia" required placeholder="17" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/10 focus:border-violet-500">
+              </div>
+
+              <div class="space-y-1">
+                <label class="text-xs font-bold text-slate-600" for="curhat-msg">Cerita Masalah Karirmu</label>
+                <textarea id="curhat-msg" required rows="4" placeholder="Misal: Saya suka desain grafis tapi orang tua memaksa saya masuk kedokteran..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/10 focus:border-violet-500"></textarea>
+              </div>
+
+              <button type="submit" class="w-full py-4 bg-slate-800 hover:bg-slate-900 text-white font-bold text-sm rounded-2xl shadow-lg cursor-pointer transition-all active:scale-[0.98] flex items-center justify-center space-x-2">
+                <i data-lucide="sparkles" class="h-4.5 w-4.5"></i>
+                <span>Unggah & Analisis Kasus BK</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Loading State for Form -->
+          <div id="counseling-loading-block" class="hidden py-12 text-center space-y-4">
+            <div class="h-10 w-10 border-4 border-slate-800 border-t-transparent rounded-full animate-spin mx-auto"></div>
+            <p class="text-xs text-slate-500 font-medium">Bimbingan Pintar AI sedang menyerap curhatanmu dan merancang draf saran...</p>
+          </div>
+
+          <!-- Result Sheet Card -->
+          <div id="counseling-result-block" class="hidden space-y-6">
+            <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+              <h3 class="font-sans font-extrabold text-sm text-slate-800 flex items-center gap-1.5">
+                <span class="p-1.5 bg-emerald-50 text-emerald-600 rounded-md">✓</span>
+                <span>Analisis Hasil Konseling</span>
+              </h3>
+              <button onclick="resetCounselingForm()" class="text-xs font-semibold text-slate-400 hover:text-slate-600">Buat Baru</button>
+            </div>
+
+            <!-- Intake Banner -->
+            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 grid grid-cols-3 gap-2 text-xs">
+              <div>
+                <span class="text-slate-405 font-bold uppercase text-[9px] block">Konseli</span>
+                <span id="res-cl-name" class="font-extrabold text-slate-800">Budi</span>
+              </div>
+              <div>
+                <span class="text-slate-405 font-bold uppercase text-[9px] block">Kelas</span>
+                <span id="res-cl-kelas" class="font-extrabold text-slate-800">XII</span>
+              </div>
+              <div>
+                <span class="text-slate-405 font-bold uppercase text-[9px] block">Uraian</span>
+                <span class="font-extrabold text-amber-600 text-[10px]">Telah Terekam di Panel BK</span>
+              </div>
+            </div>
+
+            <div class="space-y-4 text-xs font-normal text-slate-700 leading-relaxed">
+              <div class="space-y-1">
+                <h4 class="font-bold text-slate-800 uppercase text-[9px] tracking-wider text-violet-600">1. Analisis Psikologis</h4>
+                <p id="res-cl-analysis" class="italic">Analisis sedang digagas...</p>
+              </div>
+
+              <div class="space-y-1 p-4 bg-violet-50 border border-violet-100/50 rounded-xl">
+                <h4 class="font-bold text-slate-800 uppercase text-[9px] tracking-wider text-violet-700 flex items-center gap-1">
+                  <span>💡 Saran & Panduan Guru Bimbingan:</span>
+                </h4>
+                <p id="res-cl-guidance" class="font-serif">Saran sedang dirumuskan...</p>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4 pt-2">
+                <div class="space-y-1.5">
+                  <h4 class="font-bold text-slate-800 uppercase text-[9px] tracking-wider text-slate-550">Langkah Aksi Rekomendasi</h4>
+                  <ul id="res-cl-action" class="space-y-1.5 font-medium text-slate-600 pl-1.5">
+                    <!-- Li steps here -->
+                  </ul>
+                </div>
+                <div class="space-y-1.5">
+                  <h4 class="font-bold text-slate-800 uppercase text-[9px] tracking-wider text-slate-550">Sektor Karir Relevan</h4>
+                  <div id="res-cl-sectors" class="flex flex-wrap gap-1">
+                    <!-- Badges -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button onclick="window.print()" class="w-full py-3.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 font-bold text-xs rounded-xl shadow-xs transition-all cursor-pointer">
+              Cetak Berkas Bimbingan
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ==============================================
+         TAB 3: TES INTERAKTIF HOLLAND RIASEC
+         ============================================== -->
+    <div id="tab-test" class="tab-content space-y-8">
+      
+      <!-- Test intro or testing or result visualizer components -->
+      <div id="riasec-intro-pane" class="max-w-2xl mx-auto space-y-6 text-center py-6">
+        <div class="inline-flex h-14 w-14 bg-indigo-50 text-indigo-500 rounded-2xl items-center justify-center shadow-xs">
+          <i data-lucide="sparkles" class="h-6 w-6"></i>
+        </div>
+        <div class="space-y-2">
+          <h2 class="font-sans font-black text-2xl sm:text-3xl text-slate-800 leading-tight">Tes Minat Bakat Holland RIASEC</h2>
+          <p class="text-xs text-slate-500 leading-relaxed max-w-lg mx-auto font-normal">
+            Metode Holland memisahkan kepribadian karir ke dalam 6 dimensi utama. Pilih kedalaman tes di bawah ini (6, 12, 18, atau 24 pertanyaan singkat) sesuai minat kamu, nilai dari 1 hingga 5 seberapa tertarik dirimu pada tiap kegiatan.
+          </p>
+        </div>
+
+        <!-- Dynamic Question Count Selector -->
+        <div class="max-w-md mx-auto space-y-2 text-left bg-slate-50/50 p-4 border border-slate-150 rounded-2xl">
+          <label class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block text-center mb-1">Jumlah Pertanyaan & Kedalaman Tes</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" onclick="setHtmlQuestionCount(6)" id="qc-6" class="qc-btn p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col items-center justify-center bg-white border-slate-200 text-slate-705">
+              <span class="font-extrabold text-xs">6 Soal</span>
+              <span class="text-[9px] text-slate-450 font-normal mt-0.5">Mangkus & Cepat</span>
+            </button>
+            <button type="button" onclick="setHtmlQuestionCount(12)" id="qc-12" class="qc-btn p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col items-center justify-center border-violet-500 ring-2 ring-violet-500/10 bg-violet-50 text-violet-900">
+              <span class="font-extrabold text-xs">12 Soal</span>
+              <span class="text-[9px] text-slate-450 font-normal mt-0.5">Rekomendasi Akurat</span>
+            </button>
+            <button type="button" onclick="setHtmlQuestionCount(18)" id="qc-18" class="qc-btn p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col items-center justify-center bg-white border-slate-200 text-slate-705">
+              <span class="font-extrabold text-xs">18 Soal</span>
+              <span class="text-[9px] text-slate-450 font-normal mt-0.5">Sangat Mendalam</span>
+            </button>
+            <button type="button" onclick="setHtmlQuestionCount(24)" id="qc-24" class="qc-btn p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col items-center justify-center bg-white border-slate-200 text-slate-705">
+              <span class="font-extrabold text-xs">24 Soal</span>
+              <span class="text-[9px] text-slate-450 font-normal mt-0.5">Analisis Penuh</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white border border-slate-100 p-6 rounded-3xl grid grid-cols-2 sm:grid-cols-3 gap-4 text-left shadow-2xs">
+          <div class="p-3 bg-slate-50 rounded-xl space-y-1">
+            <span class="text-xs font-extrabold text-slate-800">Realistic (R)</span>
+            <p class="text-[10px] text-slate-500 font-normal leading-tight">Praktis, mekanik, fisik, lapangan.</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-xl space-y-1">
+            <span class="text-xs font-extrabold text-slate-800">Investigative (I)</span>
+            <p class="text-[10px] text-slate-500 font-normal leading-tight">Analitis, riset, logika, sains.</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-xl space-y-1">
+            <span class="text-xs font-extrabold text-slate-800">Artistic (A)</span>
+            <p class="text-[10px] text-slate-500 font-normal leading-tight">Kreatif, ekspresif, orisinal, seni.</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-xl space-y-1">
+            <span class="text-xs font-extrabold text-slate-800">Social (S)</span>
+            <p class="text-[10px] text-slate-500 font-normal leading-tight">Mengajar, menolong, komunikasi.</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-xl space-y-1">
+            <span class="text-xs font-extrabold text-slate-800">Enterprising (E)</span>
+            <p class="text-[10px] text-slate-500 font-normal leading-tight">Memimpin, bisnis, persuasi.</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-xl space-y-1">
+            <span class="text-xs font-extrabold text-slate-800">Conventional (C)</span>
+            <p class="text-[10px] text-slate-500 font-normal leading-tight">Teratur, data, administrasi.</p>
+          </div>
+        </div>
+
+        <!-- Student Intake before quiz -->
+        <div class="bg-white border border-slate-100 p-6 rounded-3xl space-y-4 text-left">
+          <h4 class="font-sans font-bold text-xs uppercase text-slate-500 tracking-wider">Lengkapi Identitas Terlebih Dahulu</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="space-y-1">
+              <label class="text-[10px] font-bold text-slate-600" for="test-name">Nama Siswa</label>
+              <input type="text" id="test-name" placeholder="Rian Prayoga" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-indigo-500">
+            </div>
+            <div class="space-y-1">
+              <label class="text-[10px] font-bold text-slate-600" for="test-kelas">Kelas</label>
+              <input type="text" id="test-kelas" placeholder="XI IPS 2" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-indigo-500">
+            </div>
+            <div class="space-y-1">
+              <label class="text-[10px] font-bold text-slate-600" for="test-usia">Usia</label>
+              <input type="number" id="test-usia" placeholder="16" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-indigo-500">
+            </div>
+          </div>
+
+          <button onclick="startRiasecTest()" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-2xl cursor-pointer shadow-md transition-all active:scale-[0.98]">
+            Mulai Tes RIASEC Sekarang
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Test Questions Card -->
+      <div id="riasec-quiz-pane" class="hidden max-w-2xl mx-auto bg-white border border-slate-100 rounded-3xl p-6 sm:p-10 shadow-sm text-left space-y-8">
+        
+        <!-- Progress Info -->
+        <div class="flex justify-between items-center text-xs border-b border-slate-50 pb-4">
+          <span class="font-extrabold text-indigo-600" id="quiz-progress-text">Pertanyaan 1 dari 30</span>
+          <span class="font-semibold text-slate-400" id="quiz-category-badge">Kategori: Realistic</span>
+        </div>
+
+        <!-- Progress bar container -->
+        <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+          <div id="quiz-progress-bar" class="bg-indigo-500 h-full transition-all duration-300" style="width: 3.33%"></div>
+        </div>
+
+        <!-- Central Question -->
+        <div class="space-y-4 py-4 min-h-[90px]">
+          <h3 id="quiz-question-text" class="font-serif italic font-normal text-lg sm:text-xl text-slate-800 leading-relaxed">
+            Menyukai aktivitas bongkar pasang mesin sepeda motor, perkakas listrik, atau peralatan elektronik di rumah.
+          </h3>
+        </div>
+
+        <!-- Score Selector Row -->
+        <div class="space-y-2.5">
+          <p class="text-[10px] text-slate-400 uppercase font-extrabold text-center tracking-wider">Nilai Seberapa Tertarik Anda (1 = Sangat Benci, 5 = Sangat Suka)</p>
+          <div class="grid grid-cols-5 gap-2.5">
+            <button onclick="answerQuestion(1)" class="py-4.5 py-4 bg-slate-50 hover:bg-indigo-55 hover:bg-slate-100 border border-slate-200 rounded-xl text-sm font-black text-slate-700 cursor-pointer active:scale-95 transition-all text-center">1</button>
+            <button onclick="answerQuestion(2)" class="py-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-sm font-black text-slate-700 cursor-pointer active:scale-95 transition-all text-center">2</button>
+            <button onclick="answerQuestion(3)" class="py-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-sm font-black text-slate-700 cursor-pointer active:scale-95 transition-all text-center">3</button>
+            <button onclick="answerQuestion(4)" class="py-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-sm font-black text-slate-700 cursor-pointer active:scale-95 transition-all text-center">4</button>
+            <button onclick="answerQuestion(5)" class="py-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-sm font-black text-slate-700 cursor-pointer active:scale-95 transition-all text-center">5</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Test Loading Engine Panel -->
+      <div id="riasec-loading-pane" class="hidden py-24 text-center space-y-4 max-w-md mx-auto">
+        <div class="h-11 w-11 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+        <p class="text-xs text-slate-500 font-semibold leading-relaxed">Kecerdasan Buatan kami sedang merangkup skor RIASEC Anda untuk menggagas opsi kuliah dan karir modern yang paling sesuai. Mohon tunggu sejenak, Nak.</p>
+      </div>
+
+      <!-- Test Result Report -->
+      <div id="riasec-result-pane" class="hidden max-w-4xl mx-auto space-y-8 text-left">
+        <div class="bg-white border border-slate-100 rounded-3xl p-6 sm:p-10 shadow-sm space-y-8">
+          
+          <div class="flex justify-between items-start pb-5 border-b border-slate-100">
+            <div class="space-y-1">
+              <span class="px-2.5 py-0.5 bg-indigo-50 text-indigo-700 font-extrabold text-[10px] rounded-md uppercase">Laporan Minat Bakat RIASEC</span>
+              <h3 class="font-sans font-extrabold text-2xl text-slate-800">Peta Rekomendasi Karir & Pendidikan</h3>
+            </div>
+            <button onclick="resetRiasecTest()" class="px-3 py-1.5 border border-slate-200 text-xs font-bold text-slate-600 hover:text-slate-800 rounded-xl transition-all cursor-pointer">Tes Ulang</button>
+          </div>
+
+          <!-- Student Meta Intake -->
+          <div class="bg-slate-50 p-4 border border-slate-100 rounded-2xl grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-bold text-slate-700">
+            <div>
+              <span class="text-slate-400 text-[9px] uppercase block tracking-wider font-extrabold">Nama Lengkap Siswa</span>
+              <span id="res-ts-name" class="text-slate-800">Rian</span>
+            </div>
+            <div>
+              <span class="text-slate-400 text-[9px] uppercase block tracking-wider font-extrabold">Kelas / Tingkat</span>
+              <span id="res-ts-kelas" class="text-slate-800">XI IPS 2</span>
+            </div>
+            <div>
+              <span class="text-slate-400 text-[9px] uppercase block tracking-wider font-extrabold">Keputusan Sistem</span>
+              <span class="text-indigo-600 font-extrabold">Terekam Sempurna di Panel BK</span>
+            </div>
+          </div>
+
+          <!-- Chart Bar Sebarans -->
+          <div class="space-y-3">
+            <h4 class="text-slate-500 uppercase text-[10px] tracking-wider font-extrabold">Visualisasi Sebaran Skor Holland Anda:</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-6 gap-4">
+              <!-- R -->
+              <div class="bg-slate-50/65 border border-slate-100 p-3 rounded-2xl text-center flex flex-col items-center justify-between">
+                <span class="text-xs font-bold text-slate-700">Realistic (R)</span>
+                <div class="relative w-2 bg-slate-200 rounded-full h-14 mt-2 flex items-end overflow-hidden">
+                  <div id="bar-R" class="bg-indigo-500 w-full" style="height: 50%"></div>
+                </div>
+                <span id="score-R" class="text-xs font-black text-slate-805 text-slate-800 mt-2">5/10</span>
+              </div>
+              <!-- I -->
+              <div class="bg-slate-50/65 border border-slate-100 p-3 rounded-2xl text-center flex flex-col items-center justify-between">
+                <span class="text-xs font-bold text-slate-700">Investigative (I)</span>
+                <div class="relative w-2 bg-slate-200 rounded-full h-14 mt-2 flex items-end overflow-hidden">
+                  <div id="bar-I" class="bg-indigo-505 bg-indigo-500 w-full" style="height: 50%"></div>
+                </div>
+                <span id="score-I" class="text-xs font-black text-slate-800 mt-2">5/10</span>
+              </div>
+              <!-- A -->
+              <div class="bg-slate-50/65 border border-slate-100 p-3 rounded-2xl text-center flex flex-col items-center justify-between">
+                <span class="text-xs font-bold text-slate-700">Artistic (A)</span>
+                <div class="relative w-2 bg-slate-200 rounded-full h-14 mt-2 flex items-end overflow-hidden">
+                  <div id="bar-A" class="bg-indigo-500 w-full" style="height: 50%"></div>
+                </div>
+                <span id="score-A" class="text-xs font-black text-slate-800 mt-2">5/10</span>
+              </div>
+              <!-- S -->
+              <div class="bg-slate-50/65 border border-slate-100 p-3 rounded-2xl text-center flex flex-col items-center justify-between">
+                <span class="text-xs font-bold text-slate-700">Social (S)</span>
+                <div class="relative w-2 bg-slate-200 rounded-full h-14 mt-2 flex items-end overflow-hidden">
+                  <div id="bar-S" class="bg-indigo-500 w-full" style="height: 50%"></div>
+                </div>
+                <span id="score-S" class="text-xs font-black text-slate-800 mt-2">5/10</span>
+              </div>
+              <!-- E -->
+              <div class="bg-slate-50/65 border border-slate-100 p-3 rounded-2xl text-center flex flex-col items-center justify-between">
+                <span class="text-xs font-bold text-slate-700">Enterprising (E)</span>
+                <div class="relative w-2 bg-slate-200 rounded-full h-14 mt-2 flex items-end overflow-hidden">
+                  <div id="bar-E" class="bg-indigo-500 w-full" style="height: 50%"></div>
+                </div>
+                <span id="score-E" class="text-xs font-black text-slate-800 mt-2">5/10</span>
+              </div>
+              <!-- C -->
+              <div class="bg-slate-50/65 border border-slate-100 p-3 rounded-2xl text-center flex flex-col items-center justify-between">
+                <span class="text-xs font-bold text-slate-700">Conventional (C)</span>
+                <div class="relative w-2 bg-slate-200 rounded-full h-14 mt-2 flex items-end overflow-hidden">
+                  <div id="bar-C" class="bg-indigo-500 w-full" style="height: 50%"></div>
+                </div>
+                <span id="score-C" class="text-xs font-black text-slate-800 mt-2">5/10</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detailed Reports -->
+          <div class="space-y-6">
+            <div class="p-5 bg-indigo-50/40 border border-indigo-100 rounded-2xl space-y-2">
+              <h4 class="font-sans font-extrabold text-indigo-900 text-sm flex items-center space-x-1.5 uppercase">
+                <span>🎯 Tipe Dominan: <span id="res-ts-dominant-type">Investigative</span></span>
+              </h4>
+              <p id="res-ts-desc" class="text-slate-700 text-xs sm:text-sm leading-relaxed font-normal">
+                Deskripsi analisis tipe dominan.
+              </p>
+            </div>
+
+            <!-- Major & Career split layout grids -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div class="space-y-3">
+                <h5 class="font-sans font-bold text-xs uppercase text-slate-400 tracking-wider">Usulan Program Studi (Kuliah)</h5>
+                <div id="res-ts-majors" class="space-y-2">
+                  <!-- Majors list injected here via JS -->
+                </div>
+              </div>
+
+              <div class="space-y-3">
+                <h5 class="font-sans font-bold text-xs uppercase text-slate-400 tracking-wider">Potensi & Prospek Karir Utama</h5>
+                <div id="res-ts-careers" class="space-y-2.5">
+                  <!-- Careers grid injected here via JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Study Strategy Tips -->
+            <div class="space-y-2.5 border-t border-slate-100 pt-5">
+              <h5 class="font-sans font-bold text-xs uppercase text-slate-400 tracking-wider">Langkah Pembinaan Belajar Strategis</h5>
+              <div id="res-ts-strategies" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <!-- Strategy blocks injected here via JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Print layout footer button -->
+          <button onclick="window.print()" class="w-full py-4 bg-slate-850 hover:bg-slate-900 text-white font-bold text-sm rounded-2xl cursor-pointer shadow-sm shadow-indigo-200 transition-all active:scale-[0.98]">
+            Hubungkan ke Printer / Simpan Cetak PDF
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ==============================================
+         TAB 6: TANYA GURU BK (CHAT PANEL)
+         ============================================== -->
+    <div id="tab-chat" class="tab-content space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Chat Left Profile Box -->
+        <div class="lg:col-span-4 space-y-6 text-left">
+          <div class="space-y-2">
+            <span class="px-2.5 py-0.5 bg-violet-50 text-violet-700 rounded-md font-extrabold text-[10px] uppercase">Layanan Chat BK</span>
+            <h2 class="font-sans font-extrabold text-2xl text-slate-800 tracking-tight">Konsultasi Pribadi Ibu Ilma</h2>
+            <p class="text-xs text-slate-500 leading-relaxed font-normal">
+              Selamat datang di Ruang Konseling Chat Online! Di sini bimbingan karier Anda dibantu penuh interaktif. Anda dapat bertanya mengenai kebingungan memilih jurusan kuliahan, beasiswa, karir masa depan, atau cara meyakinkan orang tua. Jawabannya instan, mendidik, dan penuh solusi praktis.
+            </p>
+          </div>
+          
+          <div class="bg-violet-50/65 p-4 border border-violet-100/50 rounded-2xl flex items-center gap-3">
+            <div class="h-10 w-10 rounded-full bg-violet-600 text-white font-serif flex items-center justify-center font-bold relative shrink-0">
+              IM
+              <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border border-white rounded-full"></span>
+            </div>
+            <div class="text-xs text-left">
+              <div class="font-extrabold text-slate-800">Ibu Ilma Mauliani, S.Pd.</div>
+              <div class="text-[10px] text-slate-400 mt-0.5 font-normal">Guru BK & Pembina Karir Siswa</div>
+            </div>
+          </div>
+          
+          <div class="text-[10px] text-slate-500 font-semibold space-y-1.5 leading-relaxed bg-slate-50 border border-slate-200 p-4 rounded-xl">
+            <p class="font-bold text-slate-500 uppercase tracking-wide mb-1">💡 Topik Rekomendasi Chat:</p>
+            <p>● "Bagaimana memilih jurusan kuliah yang tepat?"</p>
+            <p>● "Cara menjelaskan passion saya ke orang tua yang tidak setuju?"</p>
+            <p>● "Apa prospek karir Pendidikan Matematika / Sosiologi?"</p>
+            <p>● "Saya minder dengan nilai SNBT, apa yang harus dipersiapkan?"</p>
+          </div>
+        </div>
+        
+        <!-- Chat Area Box -->
+        <div class="lg:col-span-8 bg-white border border-slate-100 rounded-3xl overflow-hidden flex flex-col h-[520px] shadow-xs">
+          <!-- Chat Header -->
+          <div class="p-4 bg-slate-900 text-white flex items-center justify-between">
+            <div class="flex items-center space-x-3 text-left">
+              <div class="h-8 w-8 rounded-full bg-violet-500 flex items-center justify-center font-serif font-bold text-xs text-white">BK</div>
+              <div>
+                <h4 class="font-bold text-xs">Konseling Karir Mandiri Chat</h4>
+                <p class="text-[10px] text-slate-300 font-normal">Ibu Ilma Mauliani (AI Assistant Edition)</p>
+              </div>
+            </div>
+            <span class="text-[9px] px-2 py-0.5 bg-emerald-500 text-white rounded font-bold uppercase select-none tracking-wider">ONLINE</span>
+          </div>
+          
+          <!-- Chat Logs -->
+          <div id="chat-messages-container" class="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar bg-slate-50/50">
+            <!-- Initial Greetings -->
+            <div class="flex items-start gap-2.5 max-w-[85%]">
+              <div class="h-6 w-6 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center font-serif font-bold text-[10px] shrink-0 mt-0.5">BK</div>
+              <div class="bg-white border border-slate-100 rounded-2xl rounded-tl-none p-3 shadow-2xs text-xs text-left text-slate-700">
+                <p class="font-medium text-slate-700 leading-relaxed">
+                  Assalamu'alaikum wr. wb., selamat datang, Nak! Ibu sangat senang menyambutmu di Ruang BK Karir online. Bagaimana kabarmu hari ini? Silakan ceritakan keraguan atau dilema karir apa yang sedang berkecamuk di dalam pikiranmu.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Input Form bar -->
+          <form onsubmit="sendChatMessage(event)" class="p-3 border-t border-slate-100 bg-white flex items-center gap-2">
+            <input type="text" id="chat-input-field" required placeholder="Tanyakan kebingunganmu, ketik di sini..." class="flex-1 px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 outline-none focus:bg-white focus:border-violet-500 focus:ring-1 focus:ring-violet-500/10 placeholder-slate-400">
+            <button type="submit" class="h-11 w-11 bg-slate-900 hover:bg-violet-600 text-white rounded-xl flex items-center justify-center transition-all cursor-pointer hover:shadow-md hover:shadow-violet-500/15 active:scale-95">
+              <i data-lucide="send" class="h-4.5 w-4.5"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ==============================================
+         TAB 4: EKSPLORASI KARIR MODERN
+         ============================================== -->
+    <div id="tab-eksplorasi" class="tab-content space-y-8 text-left">
+      <div class="space-y-2">
+        <span class="px-2.5 py-0.5 bg-emerald-50 text-emerald-700 rounded-md font-extrabold text-[10px] uppercase">Pustaka Karir</span>
+        <h2 class="font-sans font-extrabold text-3xl text-slate-800 tracking-tight">Katalog Karir Modern BK Care</h2>
+        <p class="text-xs text-slate-500 leading-relaxed max-w-2xl font-normal">
+          Dapatkan gambaran komprehensif dari sektor-sektor industri masa depan yang paling strategis bagi siswa BK masa kini. Dilengkapi dengan jenis-jenis program studi yang selaras.
+        </p>
+      </div>
+
+      <!-- Search and Filter Controls -->
+      <div class="flex flex-col md:flex-row gap-4 bg-white border border-slate-100 p-4 rounded-3xl shadow-2xs">
+        <div class="relative flex-1">
+          <i data-lucide="search" class="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400"></i>
+          <input
+            type="text"
+            id="explorer-search-input"
+            oninput="filterExplorerCatalog()"
+            placeholder="Cari karir, bidang industri, atau program studi kuliah..."
+            class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 outline-none focus:bg-white focus:border-violet-500 transition-all placeholder-slate-400 font-normal"
+          >
+        </div>
+        <div class="flex gap-2 overflow-x-auto pb-1 max-w-full scrollbar-none">
+          <button onclick="filterExplorerGroup('all')" id="btn-exp-all" class="exp-filter-btn shrink-0 px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold transition-all cursor-pointer">Semua Bidang</button>
+          <button onclick="filterExplorerGroup('Teknologi')" id="btn-exp-tek" class="exp-filter-btn shrink-0 px-4 py-2 bg-slate-50 text-slate-600 hover:bg-slate-100 rounded-xl text-xs font-semibold transition-all cursor-pointer">Teknologi & IT</button>
+          <button onclick="filterExplorerGroup('Kesehatan')" id="btn-exp-kes" class="exp-filter-btn shrink-0 px-4 py-2 bg-slate-50 text-slate-600 hover:bg-slate-100 rounded-xl text-xs font-semibold transition-all cursor-pointer">Kesehatan</button>
+          <button onclick="filterExplorerGroup('Seni')" id="btn-exp-sen" class="exp-filter-btn shrink-0 px-4 py-2 bg-slate-50 text-slate-600 hover:bg-slate-100 rounded-xl text-xs font-semibold transition-all cursor-pointer">Kreatif & Desain</button>
+          <button onclick="filterExplorerGroup('Humaniora')" id="btn-exp-hum" class="exp-filter-btn shrink-0 px-4 py-2 bg-slate-50 text-slate-600 hover:bg-slate-100 rounded-xl text-xs font-semibold transition-all cursor-pointer">Humaniora</button>
+          <button onclick="filterExplorerGroup('Manajemen')" id="btn-exp-man" class="exp-filter-btn shrink-0 px-4 py-2 bg-slate-50 text-slate-600 hover:bg-slate-100 rounded-xl text-xs font-semibold transition-all cursor-pointer">Bisnis & Hukum</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="career-catalog-grid">
+        <!-- Bento grid components will be generated here -->
+      </div>
+    </div>
+
+
+    <!-- ==============================================
+         TAB 5: PANEL KHUSUS GURU BK
+         ============================================== -->
+    <div id="tab-panel-guru" class="tab-content space-y-8">
+      
+      <!-- AUTHENTICATION FORM GURU -->
+      <div id="bk-auth-section" class="max-w-md mx-auto py-12 text-left">
+        <div class="bg-white border border-slate-100 rounded-3xl p-8 shadow-sm space-y-6 text-center">
+          <div class="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-violet-50 text-violet-500 mb-2">
+            <i data-lucide="lock" class="h-6 w-6"></i>
+          </div>
+          
+          <div class="space-y-1.5 text-center">
+            <h2 class="font-sans font-extrabold text-2xl text-slate-850">Akses Masuk Panel BK</h2>
+            <p class="text-[11px] text-slate-500 leading-relaxed font-normal">
+              Selamat datang Ibu <strong>Ilma Mauliani</strong>. Sebagai platform CodePen yang mengedepankan efisiensi, seluruh data disimpan aman di penyimpanan lokal (LocalStorage). Silakan masukkan password bimbingan karir Anda.
+            </p>
+          </div>
+
+          <form onsubmit="authenticateTeacher(event)" class="space-y-4">
+            <div class="space-y-1.5 text-left">
+              <label class="text-xs font-bold text-slate-700" for="teacher-pass">Sandi Khusus Guru BK</label>
+              <input
+                type="password"
+                id="teacher-pass"
+                placeholder="Masukkan Sandi (Standard: ilma123)"
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-500/10 focus:border-violet-500 text-sm font-mono text-center"
+              >
+              <p class="text-[10px] text-slate-400 mt-1">Petunjuk password default: <span class="font-bold font-mono text-slate-600">ilma123</span></p>
+            </div>
+
+            <div id="auth-error-msg" class="hidden p-3 bg-rose-50 text-rose-600 border border-rose-100 rounded-xl text-xs font-semibold">
+              Sandi salah atau tidak valid! Silakan koreksi kembali.
+            </div>
+
+            <button
+              type="submit"
+              class="w-full py-3 bg-slate-800 hover:bg-slate-900 text-white font-bold text-sm rounded-xl cursor-pointer shadow-md transition-all active:scale-[0.98]"
+            >
+              Masuk ke Dashboard Sistem BK
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- INSIDE ACCREDITED TEACHER BOARD -->
+      <div id="bk-dashboard-section" class="hidden space-y-8 text-left">
+        
+        <!-- Header Controls -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white border border-slate-100 p-6 rounded-3xl shadow-xs">
+          <div class="space-y-1">
+            <div class="inline-flex items-center space-x-1 px-2.5 py-0.5 bg-emerald-50 text-emerald-700 rounded-md text-[9px] font-bold uppercase">
+              <i data-lucide="unlock" class="h-3 w-3 inline mr-1"></i>
+              <span>Sesi Terbuka</span>
+            </div>
+            <h2 class="font-sans font-extrabold text-xl sm:text-2xl text-slate-800">Ruang Panel Monitor BK Ibu Ilma</h2>
+            <p class="text-slate-500 text-xs font-medium">
+              Monitor partisipasi bimbingan karir, curhatan yang masuk, dan peta hasil Holland RIASEC siswa.
+            </p>
+          </div>
+
+          <div class="flex space-x-2 shrink-0">
+            <button
+              onclick="renderBkRecords()"
+              class="px-3.5 py-2 hover:bg-slate-50 border border-slate-200 text-slate-650 rounded-xl text-xs font-semibold transition-all cursor-pointer"
+            >
+              Segarkan Data
+            </button>
+            <button
+              onclick="clearLocalDb()"
+              class="flex items-center space-x-1 px-3.5 py-2 bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 rounded-xl text-xs font-bold transition-all cursor-pointer"
+            >
+              <i data-lucide="trash-2" class="h-4 w-4 shrink-0"></i>
+              <span>Hapus Semua</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mini Stats Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-xs flex items-center space-x-4">
+            <div class="h-11 w-11 bg-violet-50 text-violet-600 rounded-xl flex items-center justify-center">
+              <i data-lucide="file-text" class="h-5.5 w-5.5"></i>
+            </div>
+            <div>
+              <div class="text-2xl font-black text-slate-850" id="stat-counseling-count">0</div>
+              <p class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider">Formulir Curhat Masuk</p>
+            </div>
+          </div>
+
+          <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-xs flex items-center space-x-4">
+            <div class="h-11 w-11 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center">
+              <i data-lucide="bar-chart-3" class="h-5.5 w-5.5"></i>
+            </div>
+            <div>
+              <div class="text-2xl font-black text-slate-850" id="stat-test-count">0</div>
+              <p class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider">Siswa Menyelesaikan Tes</p>
+            </div>
+          </div>
+
+          <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-xs flex items-center space-x-4">
+            <div class="h-11 w-11 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
+              <i data-lucide="users" class="h-5.5 w-5.5"></i>
+            </div>
+            <div>
+              <div class="text-2xl font-black text-slate-850" id="stat-unique-count">0</div>
+              <p class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider">Total Siswa Unik</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Selection Sub Monitor & Search -->
+        <div class="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-xs space-y-6">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-50 pb-5">
+            
+            <div class="flex bg-slate-100 p-1 rounded-xl">
+              <button
+                onclick="switchSubMonitor('counseling')"
+                id="sub-monitor-counseling-btn"
+                class="px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center space-x-1.5 bg-white text-slate-800 shadow-xs"
+              >
+                <i data-lucide="file-text" class="h-4 w-4"></i>
+                <span>Formulir Curhat</span>
+              </button>
+              <button
+                onclick="switchSubMonitor('riasec')"
+                id="sub-monitor-riasec-btn"
+                class="px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center space-x-1.5 text-slate-500 hover:text-slate-700"
+              >
+                <i data-lucide="bar-chart-3" class="h-4 w-4"></i>
+                <span>Hasil Tes RIASEC</span>
+              </button>
+            </div>
+
+            <!-- Search -->
+            <div class="relative w-full sm:w-72">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i data-lucide="search" class="h-4 w-4 text-slate-400"></i>
+              </span>
+              <input
+                type="text"
+                id="monitor-search-input"
+                oninput="filterMonitorRecords()"
+                placeholder="Cari siswa atau kelas..."
+                class="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-xs outline-none"
+              >
+            </div>
+          </div>
+
+          <!-- TABLE CONTAINERS -->
+          <div class="overflow-x-auto">
+            <!-- Table 1: Counseling sub -->
+            <div id="sub-monitor-counseling-area">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-100 text-slate-400 text-[10px] uppercase tracking-wider font-extrabold">
+                    <th class="pb-3.5 pl-2">Tanggal Pengisian</th>
+                    <th class="pb-3.5">Nama Siswa</th>
+                    <th class="pb-3.5">Kelas</th>
+                    <th class="pb-3.5">Inti Curhatan</th>
+                    <th class="pb-3.5 text-right pr-2">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="monitor-counseling-tbody">
+                  <!-- Row items injected -->
+                </tbody>
+              </table>
+              <div id="monitor-counseling-empty" class="hidden py-12 text-center text-slate-400 text-xs font-semibold">
+                Nihil data bimbingan karir yang masuk di sistem ini.
+              </div>
+            </div>
+
+            <!-- Table 2: RIASEC sub -->
+            <div id="sub-monitor-riasec-area" class="hidden">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-100 text-slate-400 text-[10px] uppercase tracking-wider font-extrabold">
+                    <th class="pb-3.5 pl-2">Tanggal Tes</th>
+                    <th class="pb-3.5">Nama Siswa</th>
+                    <th class="pb-3.5">Kelas</th>
+                    <th class="pb-3.5">Tipe Dominan</th>
+                    <th class="pb-3.5">Skor RIASEC</th>
+                    <th class="pb-3.5 text-right pr-2">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="monitor-riasec-tbody">
+                  <!-- Row items injected -->
+                </tbody>
+              </table>
+              <div id="monitor-riasec-empty" class="hidden py-12 text-center text-slate-400 text-xs font-semibold">
+                Nihil data tes Holland RIASEC siswa di sistem ini.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ==============================================
+       DETAIL OVERLAY MODALS
+       ============================================== -->
+  
+  <!-- Counseling Detail Modal -->
+  <div id="modal-counseling" class="hidden fixed inset-0 z-55 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-xs p-4 overflow-y-auto">
+    <div class="bg-white border border-slate-100 rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 sm:p-10 shadow-xl space-y-8 text-left">
+      <div class="flex justify-between items-start pb-5 border-b border-slate-100">
+        <div class="space-y-1">
+          <span class="px-2.5 py-0.5 bg-violet-50 text-violet-700 font-extrabold text-[9px] rounded-md uppercase">
+            Detail Konseling Murid
+          </span>
+          <h3 class="font-sans font-extrabold text-xl text-slate-805 text-slate-800">Lembar Kajian Kasus Terfokus</h3>
+        </div>
+        <button onclick="closeModal('modal-counseling')" class="p-2 bg-slate-50 text-slate-400 hover:text-slate-600 rounded-xl cursor-pointer">
+          <i data-lucide="x" class="h-5 w-5"></i>
+        </button>
+      </div>
+
+      <!-- Basic Profile -->
+      <div class="bg-slate-50 border border-slate-100 p-4 rounded-xl grid grid-cols-3 gap-4 text-xs font-semibold text-slate-700">
+        <div>
+          <span class="text-slate-450 text-[9px] font-bold block uppercase">Nama Konseli</span>
+          <span id="md-c-name" class="text-slate-800">Budi</span>
+        </div>
+        <div>
+          <span class="text-slate-450 text-[9px] font-bold block uppercase">Kelas / Umur</span>
+          <span id="md-c-kelas" class="text-slate-800">XII (17 Th)</span>
+        </div>
+        <div>
+          <span class="text-slate-450 text-[9px] font-bold block uppercase">Tanggal Unggah</span>
+          <span id="md-c-date" class="text-slate-800">Hari ini</span>
+        </div>
+      </div>
+
+      <!-- Curhatan Asli -->
+      <div class="space-y-2">
+        <span class="text-[9px] uppercase font-extrabold tracking-wider text-slate-405">Ungkapan Kegelisahan Murid:</span>
+        <blockquote class="p-4 bg-amber-500/5 border border-amber-500/10 rounded-xl leading-relaxed italic text-serif text-amber-950 font-normal">
+          <span id="md-c-message">"Curhatan..."</span>
+        </blockquote>
+      </div>
+
+      <!-- Smart Suggestions -->
+      <div class="space-y-6">
+        <div class="space-y-1">
+          <h4 class="font-bold text-xs uppercase text-violet-600">Analisis Karakteristik BK</h4>
+          <p id="md-c-analysis" class="text-slate-600 text-xs sm:text-sm leading-relaxed whitespace-pre-line font-normal"></p>
+        </div>
+
+        <div class="p-4 bg-violet-50 border border-violet-100 rounded-xl space-y-1.5">
+          <h4 class="font-bold text-xs uppercase text-violet-700 flex items-center gap-1">💡 Saran Strategis Ibu Ilma</h4>
+          <p id="md-c-guidance" class="text-slate-700 font-serif italic text-xs leading-relaxed"></p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-1.5">
+            <h5 class="text-[9px] uppercase font-bold text-slate-400">Rencana Pembimbingan</h5>
+            <div id="md-c-steps" class="space-y-1 text-slate-650 text-xs">
+              <!-- Steps with p -->
+            </div>
+          </div>
+          <div class="space-y-1.5">
+            <h5 class="text-[9px] uppercase font-bold text-slate-400">Sektor Karir Ideal</h5>
+            <div id="md-c-sectors" class="flex flex-wrap gap-1">
+              <!-- Badges -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-4 border-t border-slate-100">
+        <button onclick="window.print()" class="px-4 py-2 border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 rounded-xl cursor-pointer">
+          Cetak Lembar BK
+        </button>
+        <button onclick="closeModal('modal-counseling')" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold rounded-xl cursor-pointer">
+          Tutup Rincian
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- RIASEC Assessment result overlay modal -->
+  <div id="modal-riasec" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-xs p-4 overflow-y-auto">
+    <div class="bg-white border border-slate-100 rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 sm:p-10 shadow-xl space-y-8 text-left">
+      <div class="flex justify-between items-start pb-5 border-b border-slate-100">
+        <div class="space-y-1">
+          <span class="px-2.5 py-0.5 bg-indigo-50 text-indigo-700 font-extrabold text-[9px] rounded-md uppercase">
+            Peta Minat Holland RIASEC
+          </span>
+          <h3 class="font-sans font-extrabold text-xl text-slate-805">Profil Minat Siswa Terperinci</h3>
+        </div>
+        <button onclick="closeModal('modal-riasec')" class="p-2 bg-slate-50 text-slate-400 hover:text-slate-600 rounded-xl cursor-pointer">
+          <i data-lucide="x" class="h-5 w-5"></i>
+        </button>
+      </div>
+
+      <!-- Basic Profile -->
+      <div class="bg-slate-50 p-4 border border-slate-100 rounded-xl grid grid-cols-3 gap-4 text-xs font-bold text-slate-750 text-slate-700">
+        <div>
+          <span class="text-slate-400 text-[9px] uppercase block">Konseli</span>
+          <span id="md-r-name" class="text-slate-805">Rian</span>
+        </div>
+        <div>
+          <span class="text-slate-405 text-[9px] uppercase block">Kelas & Umur</span>
+          <span id="md-r-kelas" class="text-slate-805">XI IPS</span>
+        </div>
+        <div>
+          <span class="text-slate-405 text-[9px] uppercase block">Tanggal Pembinaan</span>
+          <span id="md-r-date" class="text-slate-805">Hari ini</span>
+        </div>
+      </div>
+
+      <!-- Scores representation bars -->
+      <div class="space-y-3">
+        <span class="text-[9px] uppercase font-extrabold tracking-wider text-slate-405">Grafik Sebaran Skor Holland RIASEC:</span>
+        <div class="grid grid-cols-6 gap-2" id="md-r-bars-container">
+          <!-- Bars dynamic inside JS -->
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div class="p-4 bg-indigo-50/50 border border-indigo-100 rounded-xl">
+          <h4 class="font-bold text-xs uppercase text-indigo-800 shadow-3xs flex items-center">
+            <span>🎯 Dominan: <span id="md-r-dominant">Investigative</span></span>
+          </h4>
+          <p id="md-r-desc" class="text-slate-700 text-xs sm:text-xs leading-relaxed font-normal mt-1"></p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="space-y-1.5">
+            <h5 class="text-[9px] uppercase font-bold text-slate-400">Usulan Program Studi</h5>
+            <div id="md-r-majors" class="space-y-1 text-xs">
+              <!-- Majors list -->
+            </div>
+          </div>
+          <div class="space-y-1.5">
+            <h5 class="text-[9px] uppercase font-bold text-slate-400">Peta Karir Rekomendasi</h5>
+            <div id="md-r-careers" class="space-y-1 text-xs">
+              <!-- Career cards -->
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-2 border-t border-slate-100 pt-4">
+          <h5 class="text-[9px] uppercase font-bold text-slate-450">Langkah Strategi Belajar & Bimbingan</h5>
+          <div id="md-r-strategies" class="grid grid-cols-3 gap-2.5">
+            <!-- Tip blocks -->
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-4 border-t border-slate-100">
+        <button onclick="window.print()" class="px-4 py-2 border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 rounded-xl cursor-pointer">
+          Cetak Hasil Tes
+        </button>
+        <button onclick="closeModal('modal-riasec')" class="px-4 py-2 bg-slate-850 hover:bg-slate-900 text-white text-xs font-bold rounded-xl cursor-pointer">
+          Tutup Rincian
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- NO-PRINT FOOTER RAIL -->
+  <footer class="no-print border-t border-slate-100 bg-white py-6 mt-12 text-center text-4xs sm:text-3xs text-slate-400 selection:bg-slate-150">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 font-semibold">
+      <div>
+        Sistem Bimbingan Karir & Konseling Mandiri • Dikembangkan khidmat untuk Ibu Ilma Mauliani
+      </div>
+      <div class="flex items-center space-x-2">
+        <span class="px-2 py-0.5 bg-slate-50 border border-slate-200 text-slate-500 rounded font-bold font-mono">CODEPEN STANDALONE EDITION</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ==============================================
+       APP SCRIPT / BUSINESS ENGINE (VANILLA JS)
+       ============================================== -->
+  <script>
+    // Initialize Lucide Vectors
+    lucide.createIcons();
+
+    // In-memory Database / Local Storage Sync
+    let DB_COUNSELING = JSON.parse(localStorage.getItem('DB_COUNSELING') || '[]');
+    let DB_RIASEC = JSON.parse(localStorage.getItem('DB_RIASEC') || '[]');
+
+    // Seed Data if entirely empty to give an outstanding instant pre-populated experience
+    if (DB_COUNSELING.length === 0) {
+      DB_COUNSELING = [
+        {
+          id: "cs-seed-1",
+          name: "Budi Santoso",
+          kelas: "XII MIPA 2",
+          usia: 17,
+          curhat: "Saya sangat tertarik kuliah di jurusan Teknik Informatika karena suka sekali dengan coding. Tapi ayah saya bersikeras agar saya masuk Kedokteran karena paman saya berkarir sukses di sana. Saya khawatir tidak sanggup menghafal materi anatomi di kedokteran sementara logika matematika saya jauh lebih kuat.",
+          timestamp: "Selasa, 2 Juni 2026, 10.15",
+          aiResponse: {
+            analysis: "Budi Santoso memiliki ketertarikan dominan di rumpun Investigative (I) dan Realistic (R) dengan fokus digitalisasi. Konflik dengan orang tua bersumber dari perbedaan orientasi karir antara sains biologi (Kedokteran) dan ilmu formal logis (Informatika).",
+            guidance: "Nak Budi, bakat codingmu adalah modal emas menyambut era kecerdasan buatan. Ajari orang tuamu melihat peta karir tech world secara perlahan dan santun. Kamu dapat menunjukkan beasiswa-beasiswa berlimpah di bidang IT serta hasil laporan RIASEC-mu sebagai bukti objektif keseriusanmu.",
+            actionPlan: ["Tunjukkan draf portofolio website kecil yang pernah kamu buat kepada Ayah", "Bandingkan kurikulum Teknik Informatika Unismuh Makassar dengan tuntutan materi kedokteran secara akademis", "Duduklah berdiskusi asertif santun bersama Ibu Ilma di ruang BK"],
+            recommendedSectors: ["Kecerdasan Buatan (AI)", "Rekayasa Perangkat Lunak", "Teknologi Cloud Computing"]
+          }
+        },
+        {
+          id: "cs-seed-2",
+          name: "Citra Lestari",
+          kelas: "XII IPS 1",
+          usia: 18,
+          curhat: "Saya bingung memilih antara jurusan Psikologi atau ilmu Hubungan Internasional, Bu. Saya suka sekali menjadi tempat curhat teman-teman kelas dan menganalisis perilaku orang, tetapi saya juga tertarik dengan diplomatic relations dan ingin bekerja di kedutaan asing atau organisasi global.",
+          timestamp: "Senin, 1 Juni 2026, 14.30",
+          aiResponse: {
+            analysis: "Citra Lestari menunjukkan perpaduan kepribadian Social (S) dan Enterprising (E) yang kuat. Dia mendambakan interaksi interpersonal tingkat tinggi (kepekaan membantu) berpadu dengan aktivitas representasi komunikatif (hubungan internasional).",
+            guidance: "Nak Citra, kedua prodi tersebut sangat indah dan selaras dengan jiwamu yang sosial dan pandai mengartikulasikan argumen. Jika kamu ingin menggabungkan keduanya, ambillah prodi Psikologi dengan pemfokusan Psikologi Sosial/Industri atau masuk Hubungan Internasional dengan fokus bantuan kemanusiaan global.",
+            actionPlan: ["Riset program studi Psikologi dan Hubungan Internasional di kampus terakreditasi", "Ikuti mini-talkshow atau seminar psikologi remaja untuk memantapkan hati", "Gunakan hasil Tes RIASEC-mu sebagai bukti kepribadian Social dominan saat diskusi keluarga"],
+            recommendedSectors: ["Konsultansi Sumber Daya Manusia (HRD)", "Organisasi Kemanusiaan Non-Profit", "Diplomasi & Hubungan Masyarakat"]
+          }
+        }
+      ];
+      localStorage.setItem('DB_COUNSELING', JSON.stringify(DB_COUNSELING));
+    }
+
+    if (DB_RIASEC.length === 0) {
+      DB_RIASEC = [
+        {
+          id: "ri-seed-1",
+          name: "Budi Santoso",
+          kelas: "XII MIPA 2",
+          usia: 17,
+          timestamp: "Selasa, 2 Juni 2026, 10.22",
+          scores: { 'Realistic': 8, 'Investigative': 10, 'Artistic': 4, 'Social': 3, 'Enterprising': 5, 'Conventional': 7 },
+          report: {
+            primaryType: "Investigative",
+            typeName: "Investigative (Analitis & Penyelidik)",
+            description: "Menyukai kegiatan pengamatan, penelitian ilmiah, pemecahan masalah teoritis, serta eksplorasi logika abstrak yang rumit secara matematis.",
+            recommendedMajors: [
+              { name: "Teknik Informatika / Ilmu Komputer", relevance: "Mempelajari rancangan algoritma, machine learning, statistika data, database cerdas." },
+              { name: "Fisika / Matematika Murni", relevance: "Melatih logika murni terstruktur untuk memecahkan pembuktian persamaan matematis." },
+              { name: "Sains Data", relevance: "Menganalisis tumpukan data kompleks untuk mengekstrak pola strategis bagi industri." }
+            ],
+            recommendedCareers: [
+              { title: "Machine Learning Engineer", description: "Merancang algoritma kecerdasan buatan untuk otomatisasi sistem cerdas.", demand: "Sangat Tinggi", salaryRange: "Rp 12-25 Juta/Bulan" },
+              { title: "Data Scientist", description: "Mengolah big data industri untuk mendukung keputusan strategis manajemen.", demand: "Tinggi", salaryRange: "Rp 10-20 Juta/Bulan" },
+              { title: "Siber Security Analyst", description: "Menganalisis celah keamanan jaringan server dan enkripsi pertahanan sistem.", demand: "Tinggi Sekali", salaryRange: "Rp 9-18 Juta/Bulan" }
+            ],
+            studyStrategy: [
+              "Fokuslah melatih keterampilan penyelesaian problem set logika kompleks harian.",
+              "Ambil pelatihan bersertifikat gratis di bidang SQL database atau dasar pemrograman Python.",
+              "Ikuti olimpiade analisis numerik sains untuk terus menantang kognitif berpikirmu."
+            ]
+          }
+        },
+        {
+          id: "ri-seed-2",
+          name: "Citra Lestari",
+          kelas: "XII IPS 1",
+          usia: 18,
+          timestamp: "Senin, 1 Juni 2026, 14.40",
+          scores: { 'Realistic': 3, 'Investigative': 5, 'Artistic': 7, 'Social': 10, 'Enterprising': 8, 'Conventional': 4 },
+          report: {
+            primaryType: "Social",
+            typeName: "Social (Penolong & Guru)",
+            description: "Menyukai kegiatan yang melibatkan interaksi langsung dengan manusia: mengajar, mengasuh, melatih, mendengarkan bimbingan konseling, atau menyembuhkan jiwa batin.",
+            recommendedMajors: [
+              { name: "Psikologi / Hubungan Masyarakat", relevance: "Mempelajari dasar dinamika perilaku personal, kognitif emosional, konseling terapeutik." },
+              { name: "Pendidikan Bimbingan Konseling", relevance: "Mempersiapkan pendidik handal untuk bimbingan konseling karir dan krisis moral siswa." },
+              { name: "Hubungan Internasional", relevance: "Studi resolusi konflik antar bangsa, diplomasi kemanusiaan, dan hukum asasi nirlaba." }
+            ],
+            recommendedCareers: [
+              { title: "Konselor Karir / Guru BK", description: "Membimbing siswa meretas bakat alami dan memulihkan keraguan emosional mereka.", demand: "Sangat Tinggi", salaryRange: "Rp 5-10 Juta/Bulan" },
+              { title: "Koordinator Program NGO", description: "Mengatur program pemberdayaan masyarakat dan mitigasi krisis kemanusiaan nirlaba.", demand: "Stabil Tinggi", salaryRange: "Rp 6-12 Juta/Bulan" },
+              { title: "Talent Acquisition / HRD Specialist", description: "Melakukan perekrutan karyawan berlandaskan taksonomi kecakapan kepribadian.", demand: "Tinggi", salaryRange: "Rp 7-15 Juta/Bulan" }
+            ],
+            studyStrategy: [
+              "Asah kemampuan komunikasi asertif, aktif mendengarkan (active listening), serta empati verbal.",
+              "Bergabunglah dalam kepengurusan Palang Merah Remaja (PMR), OSIS, atau kepramukaan sosial.",
+              "Membaca literatur perkembangan kepribadian remaja dan teori sosiogeografis masyarakat."
+            ]
+          }
+        }
+      ];
+      localStorage.setItem('DB_RIASEC', JSON.stringify(DB_RIASEC));
+    }
+
+    // RIASEC Database references
+    const RIASEC_MAP = {
+      'Realistic': {
+        typeName: 'Realistic (Praktikal & Lapangan)',
+        description: 'Menyukai aktivitas praktis berorientasi teknikal, fisik, mekanik, konstruksi, atau mengolah objek nyata dengan mesin terarah. Kurang menyukai kegiatan sosial berpola rumit.',
+        recommendedMajors: [
+          { name: 'Teknik Sipil / Mesin', relevance: 'Mempelajari desain struktural, pemesinan presisi, material, dan pengerjaan infrastruktur fisik.' },
+          { name: 'Ilmu Kehutanan / Pertanian', relevance: 'Pengolahan sumber daya alam hayati langsung di lapangan dengan pemeliharaan terukur.' },
+          { name: 'Sistem Informasi Industri', relevance: 'Integrasi sistem operasional pabrik, mesin mekanik, logistik gudang fisik.' }
+        ],
+        recommendedCareers: [
+          { title: 'Insinyur Otomasi Industri', description: 'Merawat robotika industri perakitan modern.', demand: 'Tinggi', salaryRange: 'Rp 8-15 Juta/Bulan' },
+          { title: 'Konsultan Pemeliharaan Gedung', description: 'Audit operasional utilitas mekanikal eklektrikal sipil.', demand: 'Sedang', salaryRange: 'Rp 7-12 Juta/Bulan' },
+          { title: 'Spesialis Keselamatan Kerja (HSE)', description: 'Mitigasi ancaman kecelakaan fisik di pertambangan/konstruksi.', demand: 'Sangat Tinggi', salaryRange: 'Rp 6-11 Juta/Bulan' }
+        ],
+        studyStrategy: [
+          'Ikuti lokakarya/praktikum alat berat.',
+          'Pilih model belajar kinestetik berbasis proyek fisik.',
+          'Fokus pada sertifikasi keterampilan praktis industri.'
+        ]
+      },
+      'Investigative': {
+        typeName: 'Investigative (Analitis & Saintifik)',
+        description: 'Sangat suka mengamati, melakukan analisis ilmiah, memecahkan teka-teki logika, meneliti fenomena alam/sosial, mengolah data rumit, dan tidak suka pekerjaan kepemimpinan repetitif berlebihan.',
+        recommendedMajors: [
+          { name: 'Informatika & Kecerdasan Buatan', relevance: 'Fokus pada model matematika algoritma rumit untuk sintesis sistem digital AI.' },
+          { name: 'Farmasi / Kedokteran', relevance: 'Menganalisis anomali patologis biologi kimiawi guna mengupayakan resep akurat.' },
+          { name: 'Statistika / Data Sains', relevance: 'Pengolahan ribuan subset data berantakan agar tersusun draf konklusi bimbingan bisnis.' }
+        ],
+        recommendedCareers: [
+          { title: 'Data Scientist / AI Engineer', description: 'Membangun algoritma prediktif machine learning korporat.', demand: 'Melejit', salaryRange: 'Rp 10-25 Juta/Bulan' },
+          { title: 'Riset & Development Farmakologi', description: 'Bekerja di lab merancang emulsi antivirus/suplemen kesehatan terbaru.', demand: 'Tinggi', salaryRange: 'Rp 9-18 Juta/Bulan' },
+          { title: 'Analis Keamanan Siber (Cybersecurity)', description: 'Audit celah peretasan jaringan komputer awan dari ancaman penyusup.', demand: 'Tinggi', salaryRange: 'Rp 8-20 Juta/Bulan' }
+        ],
+        studyStrategy: [
+          'Asah penyelesaian soal olimpiade berbasis pemecahan masalah.',
+          'Gabung kelompok ilmiah remaja bidang riset digital.',
+          'Kuasai minimal satu sintaks dasar pemrograman logis (Python/SQL).'
+        ]
+      },
+      'Artistic': {
+        typeName: 'Artistic (Kreatif & Ekspresif)',
+        description: 'Kreatif, imajinatif, menyukai kebebasan dalam berekspresi, peka terhadap keindahan estetika visual atau musikal, orisinal, serta sangat tidak menyukai aturan prosedural kaku/sistem administratif lambat.',
+        recommendedMajors: [
+          { name: 'Desain Komunikasi Visual (DKV)', relevance: 'Mempelajari penuangan bahasa visual kreatif, tipografi display, branding logo.' },
+          { name: 'Seni Rupa & Industri Kreatif', relevance: 'Ekspresi orisinal karya instalasi, ilustrasi konseptual, atau karya seni 3D.' },
+          { name: 'Sastra & Industri Kreatif Penerbitan', relevance: 'Penulisan skenario naratif kreatif, copywriting persuasi emosional konsumen.' }
+        ],
+        recommendedCareers: [
+          { title: 'Creative Art Director / UI-UX Designer', description: 'Merancang tata letak visual estetis antarmuka aplikasi digital digital modern.', demand: 'Tinggi', salaryRange: 'Rp 8-18 Juta/Bulan' },
+          { title: 'Animatorkorporasi / Ilustrator game', description: 'Membuat aset gambar hidup digital visual fiksi hiburan global.', demand: 'Meningkat', salaryRange: 'Rp 7-14 Juta/Bulan' },
+          { title: 'Copywriter & Brand Strategist', description: 'Memformulasi narasi promosi produk korporasi dengan kosa kata puitis-psikologis.', demand: 'Stabil', salaryRange: 'Rp 6-12 Juta/Bulan' }
+        ],
+        studyStrategy: [
+          'Bangun portofolio karya seni/desain sedari bangku sekolah.',
+          'Ikuti proyek kerelawanan kreatif kampanye kesejahteraan hewan/sosial.',
+          'Eksplorasi penggunaan alat bantu desain generatif AI secara positif.'
+        ]
+      },
+      'Social': {
+        typeName: 'Social (Bimbingan & Humaniora)',
+        description: 'Berorientasi menolong, mengajar, mengarahkan, berkomunikasi aktif, merawat, atau membimbing sesama umat manusia demi tercapainya kesejahteraan mental, rohani, dan jasmani.',
+        recommendedMajors: [
+          { name: 'Bimbingan Konseling / Psikologi', relevance: 'Studi pola kognitif tingkah laku manusia, kerangka penyembuhan trauma, nasehat studi.' },
+          { name: 'Pendidikan Guru (PGSD / Guru Bidang)', relevance: 'Metode transfer pengetahuan interaktif secara bersahabat terhadap anak didik.' },
+          { name: 'Hubungan Masyarakat / Ilmu Sosial', relevance: 'Komunikasi diplomatik antar kubu sosial demi memelihara kerukunan kolektif.' }
+        ],
+        recommendedCareers: [
+          { title: 'Konselor Karir / Psikolog Pendidikan', description: 'Mengarahkan orientasi sekolah pasca-menengah dan membimbing kesehatan mental siswa.', demand: 'Tinggi', salaryRange: 'Rp 6-12 Juta/Bulan' },
+          { title: 'Spesialis Rekrutmen / Talent Acquisition', description: 'Memetakan pelamar kerja terbaik untuk kemajuan internal perusahaan.', demand: 'Cukup Tinggi', salaryRange: 'Rp 5-10 Juta/Bulan' },
+          { title: 'Koordinator CSR Yayasan Sosial', description: 'Menyalurkan bantuan korporat ke pemukiman terdampak krisis alam.', demand: 'Stabil', salaryRange: 'Rp 6-11 Juta/Bulan' }
+        ],
+        studyStrategy: [
+          'Pimpin kepengurusan OSIS, Pramuka, atau PMR.',
+          'Latih kecakapan mendengarkan aktif tanpa buru-buru menyela.',
+          'Biasakan melakukan presentasi komunikatif di ruang warga/kelas.'
+        ]
+      },
+      'Enterprising': {
+        typeName: 'Enterprising (Persuasif & Kepemimpinan)',
+        description: 'Ambisius, tangguh mengambil risiko, persuasif, cakap bernegosiasi bisnis, piawai mengoordinasikan tim pelaksana kerja, menyenangi pencapaian target komersial, serta tidak menyukai studi riset kaku berkepanjangan.',
+        recommendedMajors: [
+          { name: 'Manajemen Bisnis / Kewirausahaan', relevance: 'Melatih kemampuan strategi penetrasi pasar, manajemen keuangan operasional, kepemimpinan.' },
+          { name: 'Ilmu Hukum / Negosiasi Kontrak', relevance: 'Strategi pembelaan legal, negosiasi konsensus dagang, kepatuhan perundangan.' },
+          { name: 'Hubungan Internasional', relevance: 'Diplomasi strategis lintas pemerintahan guna membentuk kemitraan ekonomi.' }
+        ],
+        recommendedCareers: [
+          { title: 'Business Development Manager', description: 'Melobi calon mitra korporasi baru demi perluasan pasar modal usaha.', demand: 'Sangat Tinggi', salaryRange: 'Rp 9-22 Juta/Bulan' },
+          { title: 'Konsultan Hukum Perdagangan', description: 'Memberikan nasihat legal draf negosiasi kepemilikan aset.', demand: 'Tinggi', salaryRange: 'Rp 10-30 Juta/Bulan' },
+          { title: 'Product Manager Digital', description: 'Mengawasi rute pengemasan aplikasi digital dari ide dasar hingga laku dijual.', demand: 'Melesat', salaryRange: 'Rp 12-25 Juta/Bulan' }
+        ],
+        studyStrategy: [
+          'Uji nyali dengan merintis warung jualan kecil-kecilan di kelas.',
+          'Ikuti kompetisi rencana bisnis (Business Plan Competition).',
+          'Tingkatkan jam terbang debat persuasif bergaya diplomatik.'
+        ]
+      },
+      'Conventional': {
+        typeName: 'Conventional (Terstruktur & Finansial)',
+        description: 'Sangat detail, patuh terhadap instruksi kerja baku, menyukai pola dokumen terorganisasi rapi, pembukuan finansial, pengolahan berkas administratif, berwatak andal dalam menjamin kepatuhan data.',
+        recommendedMajors: [
+          { name: 'Akuntansi & Perpajakan', relevance: 'Analisis entri buku kas ganda, jurnal penyesuaian wajib pajak, kepatuhan keuangan.' },
+          { name: 'Manajemen Arsip Kantor', relevance: 'Penataan alur keluar-masuk surat penting secara aman bebas keliru.' },
+          { name: 'Logistik Terpadu', relevance: 'Pengawasan rantai suplai muatan depo gudang logistik antar pelabuhan.' }
+        ],
+        recommendedCareers: [
+          { title: 'Akuntan / Auditor Keuangan Senior', description: 'Memeriksa draf kewajaran lap keuangan internal korporasi dari potensi manipulasi.', demand: 'Stabil', salaryRange: 'Rp 7-15 Juta/Bulan' },
+          { title: 'Spesialis Admin Basis Data Kantor', description: 'Penghitungan presisi inventaris inventaris fisik barang manufaktur.', demand: 'Tinggi', salaryRange: 'Rp 6-10 Juta/Bulan' },
+          { title: 'Analis Kepatuhan Peraturan Ekspor', description: 'Menjamin semua draf dokumen kargo sah di pelabuhan bea cukai.', demand: 'Sangat Diperlukan', salaryRange: 'Rp 7-13 Juta/Bulan' }
+        ],
+        studyStrategy: [
+          'Kuasai keahlian formula tingkat lanjut Microsoft Excel/Google Sheets.',
+          'Bantu administrasi peminjaman perpustakaan sekolah.',
+          'Posisikan diri sebagai bendahara dalam kepanitiaan kelas.'
+        ]
+      }
+    };
+
+    const QUESTIONS_DB = [
+      { id: 1, c: 'Realistic', q: 'Suka membongkar pasang mesin sepeda motor, sepeda, perkakas mekanik, atau sirkuit listrik.' },
+      { id: 2, c: 'Investigative', q: 'Suka membaca teori sains, jurnal penelitian, atau menyelesaikan soal matematika rumit.' },
+      { id: 3, c: 'Artistic', q: 'Suka menuangkan ide imajinatif ke dalam coretan gambar, desain ilustrasi digital, atau melodi lagu.' },
+      { id: 4, c: 'Social', q: 'Merasa senang saat membantu teman menjelaskan materi pelajaran sekolah yang sulit dipahami.' },
+      { id: 5, c: 'Enterprising', q: 'Suka bernegosiasi, merintis jualan produk makanan/baju, dan memengaruhi pendapat orang lain.' },
+      { id: 6, c: 'Conventional', q: 'Menyukai kerapian menyusun data di komputermu, mengarsip berkas fisik, atau menghitung uang kas.' },
+
+      { id: 7, c: 'Realistic', q: 'Suka berkegiatan di ruang terbuka seperti bercocok tanam, mengelola kebun, atau mendaki gunung.' },
+      { id: 8, c: 'Investigative', q: 'Tertarik meneliti penyebab mutasi virus baru, khasiat tanaman herbal, atau hukum alam semesta.' },
+      { id: 9, c: 'Artistic', q: 'Lebih suka menulis puisi, novel, naskah drama, dibanding mengikuti aturan laporan tugas yang kaku.' },
+      { id: 10, c: 'Social', q: 'Senang terlibat dalam kegiatan amal sukarela, mengajar anak jalanan, atau konseling sebaya.' },
+      { id: 11, c: 'Enterprising', q: 'Memiliki ambisi memimpin kepanitiaan pentas seni, klub olahraga, atau organisasi pemuda.' },
+      { id: 12, c: 'Conventional', q: 'Suka mengerjakan kalkulasi rincian biaya pengeluaran harian/mingguan secara presisi.' },
+
+      { id: 13, c: 'Realistic', q: 'Lebih memilih merakit furnitur meja kayu sendiri daripada membeli lemari jadi yang langsung pakai.' },
+      { id: 14, c: 'Investigative', q: 'Menikmati permainan asah otak bertema detektif, catur tingkat lanjut, atau logika informatika.' },
+      { id: 15, c: 'Artistic', q: 'Senang berdebat tentang keselarasan paduan warna, dekorasi ruangan, gaya busana, atau film estetik.' },
+      { id: 16, c: 'Social', q: 'Tertarik mempelajari dinamika interaksi psikologi manusia, cara komunikasi empatik, atau mediasi konflik.' },
+      { id: 17, c: 'Enterprising', q: 'Berani menanggung tantangan memulai kampanye pimpinan kelas dibanding sekedar mengikut saja.' },
+      { id: 18, c: 'Conventional', q: 'Menyukai ketenangan merapikan daftar kontak surat keluar, inventaris gudang, atau inventaris buku.' },
+
+      { id: 19, c: 'Realistic', q: 'Suka memperbaiki kabel instalasi listrik rumah yang konslet atau mengganti kran air rusak.' },
+      { id: 20, c: 'Investigative', q: 'Suka menganalisis grafik naik-turun saham perdagangan atau memetakan pola rantai makanan laut.' },
+      { id: 21, c: 'Artistic', q: 'Tertarik membuat rancangan animasi 3D, memahat patung mini clay, atau editing seni klip video.' },
+      { id: 22, c: 'Social', q: 'Senang bekerja merawat orang sakit, melayani masyarakat, atau mengarahkan bakat disabilitas.' },
+      { id: 23, c: 'Enterprising', q: 'Menyukai posisi lobi meyakinkan investor atau agen pembeli saat bernegosiasi harga diskon.' },
+      { id: 24, c: 'Conventional', q: 'Suka merancang SOP standar administrasi kepanitiaan agar semua berjalan disiplin patuh aturan.' },
+
+      { id: 25, c: 'Realistic', q: 'Lebih suka mengukur presisi kayu bertukang di luar, dibanding duduk mengetik dokumen kearsipan.' },
+      { id: 26, c: 'Investigative', q: 'Suka menggunakan alat mikroskop lab, perangkat analisis cuaca cerdas, atau grafik statistika.' },
+      { id: 27, c: 'Artistic', q: 'Memilih menulis lirik lagu orisinal hasil kreasi pikiran sendiri daripada menyanyikan lagu cover.' },
+      { id: 28, c: 'Social', q: 'Menjadi tempat curhat utama bagi rekan sejawat yang sedang mengalami tekanan mental atau akademis.' },
+      { id: 29, c: 'Enterprising', q: 'Suka membujuk orang lain demi mengumpulkan dana bantuan sosial secara masif dalam tempo kilat.' },
+      { id: 30, c: 'Conventional', q: 'Merasa puas jika laporan neraca keuangan kelas/OSIS balance tepat tanpa selisih sepeser pun.' }
+    ];
+
+    const BENTO_CATALOG = [
+      { t: 'Teknologi Informasi & AI', b: 'Sains Komputer & Pemrograman', d: 'Fokus merancang aplikasi pintar, optimasi infrastruktur cloud computing, analitika data, dan kecerdasan artifisial modern.', s: 'Tinggi Sekali', sa: 'Rp 9 - 25 Juta', m: ['Teknik Informatika', 'Data Sains', 'Sistem Informasi'] },
+      { t: 'Kesehatan & Farmakologi', b: 'Kedokteran & Lab Riset', d: 'Mempelajari patologi, pencegahan epidemiologis, optimalisasi formula obat sediaan klinis, hingga perawatan pasien bimbingan.', s: 'Selalu Diminta', sa: 'Rp 8 - 20 Juta', m: ['Pendidikan Dokter', 'Farmasi', 'Ilmu Keperawatan'] },
+      { t: 'Seni Kreatif & DKV', b: 'Industri Kreatif Estetika', d: 'Mengekspresikan pesan pemasaran melalui tipografi, ilustrasi interaktif, 3D modeling, hingga visual interior arsitektur modern.', s: 'Cepat Tumbuh', sa: 'Rp 6 - 15 Juta', m: ['DKV', 'Seni Rupa', 'Arsitektur'] },
+      { t: 'Humaniora & Edukasi', b: 'Bimbingan, Sosial & Layanan', d: 'Mengajar anak bangsa, pembinaan kesehatan mental di sekolah, hukum pembelaan, jurnalisme investigatif.', s: 'Stabil & Mulia', sa: 'Rp 5 - 12 Juta', m: ['Psikologi', 'Pendidikan BK', 'Sastra Indonesia'] },
+      { t: 'Manajemen Bisnis', b: 'Wirausaha, Finansial & Hukum', d: 'Analisis profit pasar komersial, negosiasi legal korporasi, memimpin tim sales, mengurus draf ekspor logistik barang.', s: 'Sangat Tinggi', sa: 'Rp 8 - 22 Juta', m: ['Kewirausahaan', 'Akuntansi', 'Ilmu Hukum'] },
+      { t: 'Sains Lapangan', b: 'Engineering, Pertambangan & Fisik', d: 'Ekstraksi sumber daya alam, eksplorasi minyak bumi gas, mekanik perakitan otomotif, perkebunan hidroponik cerdas.', s: 'Stabil Tinggi', sa: 'Rp 7 - 16 Juta', m: ['Teknik Pertambangan', 'Agribisnis', 'Teknik Mesin'] }
+    ];
+
+    // Navigation Switcher Engine
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-slate-900', 'text-white', 'shadow-xs');
+        btn.classList.add('text-slate-600', 'hover:bg-slate-50', 'hover:text-slate-900');
+      });
+
+      const targetTab = document.getElementById(`tab-${tabId}`);
+      if (targetTab) {
+        targetTab.classList.add('active');
+        
+        // Update Desktop active class
+        const activeNavBtn = document.getElementById(`nav-${tabId}`);
+        if (activeNavBtn) {
+          activeNavBtn.classList.remove('text-slate-600', 'hover:bg-slate-50', 'hover:text-slate-900');
+          activeNavBtn.classList.add('bg-slate-900', 'text-white', 'shadow-xs');
+        }
+
+        // Update Mobile Select Option
+        const mobSelect = document.getElementById('mobile-nav-select');
+        if (mobSelect) mobSelect.value = tabId;
+      }
+    }
+
+    // Initialize & Filter Bento Career Catalog
+    let currentExplorerFilter = 'all';
+
+    function filterExplorerGroup(group) {
+      currentExplorerFilter = group;
+      
+      // Update active button classes
+      document.querySelectorAll('.exp-filter-btn').forEach(btn => {
+        btn.classList.remove('bg-slate-900', 'text-white', 'font-bold');
+        btn.classList.add('bg-slate-50', 'text-slate-600', 'font-semibold');
+      });
+      
+      const mapId = {
+        'all': 'btn-exp-all',
+        'Teknologi': 'btn-exp-tek',
+        'Kesehatan': 'btn-exp-kes',
+        'Seni': 'btn-exp-sen',
+        'Humaniora': 'btn-exp-hum',
+        'Manajemen': 'btn-exp-man'
+      };
+      
+      const activeBtn = document.getElementById(mapId[group]);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-slate-50', 'text-slate-600', 'font-semibold');
+        activeBtn.classList.add('bg-slate-900', 'text-white', 'font-bold');
+      }
+      
+      filterExplorerCatalog();
+    }
+
+    function filterExplorerCatalog() {
+      const searchVal = document.getElementById('explorer-search-input').value.toLowerCase().trim();
+      const parent = document.getElementById('career-catalog-grid');
+      if (!parent) return;
+      
+      parent.innerHTML = '';
+      
+      const filtered = BENTO_CATALOG.filter(item => {
+        // Filter by group button
+        if (currentExplorerFilter !== 'all') {
+          if (!item.t.toLowerCase().includes(currentExplorerFilter.toLowerCase())) {
+            return false;
+          }
+        }
+        
+        // Search text matching
+        if (searchVal) {
+          const matchTitle = item.t.toLowerCase().includes(searchVal);
+          const matchCategory = item.b.toLowerCase().includes(searchVal);
+          const matchDesc = item.d.toLowerCase().includes(searchVal);
+          const matchMajors = item.m.some(maj => maj.toLowerCase().includes(searchVal));
+          return matchTitle || matchCategory || matchDesc || matchMajors;
+        }
+        
+        return true;
+      });
+      
+      if (filtered.length === 0) {
+        parent.innerHTML = `
+          <div class="col-span-full py-12 text-center bg-slate-50 border border-slate-150 rounded-2xl">
+            <p class="text-xs font-semibold text-slate-600">Tidak ada data karir yang cocok dengan pencarian Anda, Nak.</p>
+            <p class="text-[10px] text-slate-400 mt-1">Coba gunakan kata kunci umum seperti "Informatika", "Dokter", atau "Desain".</p>
+          </div>
+        `;
+        return;
+      }
+      
+      filtered.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = "bg-white border border-slate-100 p-6 rounded-3xl shadow-xs space-y-4 animate-fade-in";
+        card.innerHTML = `
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-start gap-2">
+              <span class="text-4xs px-2 py-0.5 bg-slate-100 text-slate-600 font-extrabold uppercase rounded-md tracking-wider">${item.b}</span>
+              <span class="text-[9px] px-1.5 py-0.5 bg-emerald-50 text-emerald-700 rounded-md font-bold uppercase">${item.s}</span>
+            </div>
+            <h3 class="font-sans font-extrabold text-base text-slate-800">${item.t}</h3>
+            <p class="text-slate-500 text-xs leading-relaxed font-normal">${item.d}</p>
+          </div>
+          <div class="space-y-1 pt-2 border-t border-slate-50 text-4xs">
+            <p class="font-bold text-slate-400 uppercase tracking-widest">Pilihan Jurusan Kuliah:</p>
+            <div class="flex flex-wrap gap-1 mt-1">
+              ${item.m.map(maj => `<span class="px-2 py-1 bg-slate-50 border border-slate-200/50 rounded-md text-slate-605 font-bold">${maj}</span>`).join('')}
+            </div>
+            <p class="font-semibold text-slate-400 uppercase tracking-wider mt-2.5">Potensi Pendapatan: <span class="text-slate-700 font-bold font-sans">${item.sa}</span></p>
+          </div>
+        `;
+        parent.appendChild(card);
+      });
+      
+      lucide.createIcons();
+    }
+
+    // Run catalog render on load
+    filterExplorerCatalog();
+
+
+    // ==============================================
+    // TAB 2: CONSULTATION BIMBINGAN FORM SUBMISSION
+    // ==============================================
+    function submitCounseling(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('curhat-name').value.trim();
+      const kelas = document.getElementById('curhat-kelas').value.trim();
+      const usia = parseInt(document.getElementById('curhat-usia').value) || 17;
+      const curhat = document.getElementById('curhat-msg').value.trim();
+
+      if (!name || !kelas || !curhat) return;
+
+      document.getElementById('counseling-form-block').classList.add('hidden');
+      document.getElementById('counseling-loading-block').classList.remove('hidden');
+
+      // Generate simulated smart AI recommendations based on key keywords
+      setTimeout(() => {
+        let analysis = `Konseli ${name} menunjukkan keraguan karir yang dipicu oleh pertimbangan eksternal atau kebingungan taksonomi diri. Masalah yang diutarakan menyangkut pencarian identitas vokasional di kelas ${kelas}.`;
+        let guidance = "Lakukan pemetaan mandiri mengenai minat batiniah Anda tanpa tergesa-gesa. Duduklah bersama guru BK untuk meluruskan kesepahaman karir dengan orang tua secara tenang, santun, dan didukung data peta hasil tes Holland.";
+        let actionPlan = ["Lakukan diskusi eksploratif di rumah dengan sopan", "Selesaikan Tes Minat Bakat Holland RIASEC", "Konsultasikan draf cetak ini kepada Ibu Ilma"];
+        let recommendedSectors = ["Konsultansi Jasa", "Pendidikan Tinggi", "Teknologi Kreatif"];
+
+        const curhatLower = curhat.toLowerCase();
+        if (curhatLower.includes('seni') || curhatLower.includes('gambar') || curhatLower.includes('desain') || curhatLower.includes('musik')) {
+          analysis = `Konseli ${name} memiliki kecenderungan tipe kepribadian Artistic (A) kuat yang butuh kebebasan kreatif tinggi. Kendala utama timbul akibat pertentangan dengan ekspektasi orang tua yang menginginkan jalur sains konvensional.`;
+          guidance = `Nak, kepekaan estetikamu adalah modal emas era digital. Diskusikan dengan orang tua mengenai cerahnya industri visual kreatif saat ini. Tunjukkan portofolio awal buatanmu dan bawa lembar rekomendasi bimbingan bk ini.`;
+          actionPlan = ["Kumpulkan 5 desain karya terbaikmu jadi portofolio", "Riset program studi DKV di kampus negeri", "Duduklah berunding santun di akhir pekan"];
+          recommendedSectors = ["Industri Kreatif", "Desain Komunikasi Visual", "Seni Media"];
+        } else if (curhatLower.includes('komputer') || curhatLower.includes('teknologi') || curhatLower.includes('coding') || curhatLower.includes('it')) {
+          analysis = `Berdasarkan curhatan, konseli mengarah ke tipe Investigative (I) dan Realistic (R) dengan minat mendalam di sektor digitalisasi. Ada rasa antusias memecahkan bug sistem kode logis.`;
+          guidance = `Dunia digital membutuhkan pengembang tangguh. Mulailah mengasah logika algoritma, jangan ragu untuk memilih kuliah sains komputer yang memiliki prospek gaji di atas rata-rata nasional.`;
+          actionPlan = ["Coba satu bab basis data gratis", "Analisis minat bakat spesifik coding vs jaringan", "Ambil mata kuliah pendukung statistika"];
+          recommendedSectors = ["Rekayasa Perangkat Lunak", "Kecerdasan Buatan (AI)", "Analis Keamanan Siber"];
+        }
+
+        const dateStr = new Date().toLocaleDateString("id-ID", {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
+        });
+
+        const newRecord = {
+          id: Math.random().toString(36).substring(2, 9),
+          name, kelas, usia, curhat, timestamp: dateStr,
+          aiResponse: { analysis, guidance, actionPlan, recommendedSectors }
+        };
+
+        // Save inside LocalDB & sync LocalStorage
+        DB_COUNSELING.unshift(newRecord);
+        localStorage.setItem('DB_COUNSELING', JSON.stringify(DB_COUNSELING));
+
+        // Fill results screen
+        document.getElementById('res-cl-name').innerText = name;
+        document.getElementById('res-cl-kelas').innerText = kelas;
+        document.getElementById('res-cl-analysis').innerText = analysis;
+        document.getElementById('res-cl-guidance').innerText = `"${guidance}"`;
+        
+        // Steps list
+        const actionUl = document.getElementById('res-cl-action');
+        actionUl.innerHTML = '';
+        actionPlan.forEach(st => {
+          actionUl.innerHTML += `<li class="font-medium text-slate-700">📌 ${st}</li>`;
+        });
+
+        // Badges
+        const sectDiv = document.getElementById('res-cl-sectors');
+        sectDiv.innerHTML = '';
+        recommendedSectors.forEach(sc => {
+          sectDiv.innerHTML += `<span class="px-2 py-1 bg-violet-50 text-violet-850 border border-violet-100 rounded-lg text-4xs font-bold font-sans">💼 ${sc}</span>`;
+        });
+
+        document.getElementById('counseling-loading-block').classList.add('hidden');
+        document.getElementById('counseling-result-block').classList.remove('hidden');
+
+        lucide.createIcons();
+      }, 1500);
+    }
+
+    function resetCounselingForm() {
+      document.getElementById('curhat-name').value = '';
+      document.getElementById('curhat-kelas').value = '';
+      document.getElementById('curhat-usia').value = '';
+      document.getElementById('curhat-msg').value = '';
+
+      document.getElementById('counseling-result-block').classList.add('hidden');
+      document.getElementById('counseling-form-block').classList.remove('hidden');
+    }
+
+
+    // ==============================================
+    // TAB 6: CHATBOT GURU (TANYA GURU BK) MODULES
+    // ==============================================
+    let chatHistoryGlobal = [
+      { sender: 'bk', text: "Assalamu'alaikum wr. wb., selamat datang, Nak! Ibu sangat senang menyambutmu di Ruang BK Karir online. Bagaimana kabarmu hari ini? Silakan ceritakan keraguan atau dilema karir apa yang sedang berkecamuk di dalam pikiranmu." }
+    ];
+
+    function sendChatMessage(event) {
+      if (event) event.preventDefault();
+      
+      const input = document.getElementById('chat-input-field');
+      const text = input.value.trim();
+      if (!text) return;
+      
+      // Inject user message immediately
+      chatHistoryGlobal.push({ sender: 'user', text });
+      input.value = '';
+      renderChatLog();
+      
+      // Responses simulation based on key topics
+      setTimeout(() => {
+        const textLower = text.toLowerCase();
+        let reply = "";
+        
+        // Match specific rules
+        if (textLower.includes('assalamu') || textLower.includes('halo') || textLower.includes('pagi') || textLower.includes('siang') || textLower.includes('sore') || textLower.includes('malam') || textLower.includes('permisi') || textLower.includes('hai')) {
+          reply = "Wa'alaikumussalam Wr. Wb., Halo juga, Nak! Senang sekali kamu mampir ke bimbingan online Ibu.\n\nJika ingin memetakan minatmu secara ilmiah silakan isi [Tes Minat & Bakat](tes) atau telusuri referensi universitas lewat menu [Eksplorasi Karir](eksplorasi).\n\nIbu siap mendengarkan cerita, curhatan, atau kebingungan apa pun yang ada di dalam pikiranmu. Silakan sampaikan apa yang membuatmu bimbang akhir-akhir ini.";
+        }
+        else if (textLower.includes('informatika') || textLower.includes('komputer') || textLower.includes('coding') || textLower.includes('it') || textLower.includes('programmer') || textLower.includes('aplikasi') || textLower.includes('program') || textLower.includes('rekayasa')) {
+          reply = "Sektor Teknik Informatika dan Teknologi Informasi sedang berada di puncak kejayaannya, Nak! Di jurusan ini kamu akan belajar logika pemrograman, manajemen database, siber, hingga Kecerdasan Buatan (AI).\n\nDi perguruan tinggi terakreditasi mulia seperti Universitas Muhammadiyah Makassar (Unismuh), program studi Teknik Informatika mempersiapkan bekal masa depan yang cemerlang dengan potensi upah awal berkisar Rp 7 - 18 Juta per bulan yang bisa kamu baca detail fungsionalnya di menu [Eksplorasi Karir](eksplorasi).\n\nSangat prospektif jika kamu suka logika terstruktur!";
+        }
+        else if (textLower.includes('dokter') || textLower.includes('kedokteran') || textLower.includes('perawat') || textLower.includes('kebidanan') || textLower.includes('bidan') || textLower.includes('kesehatan') || textLower.includes('farmasi') || textLower.includes('obat') || textLower.includes('laboratorium') || textLower.includes('apoteker')) {
+          reply = "Memilih rumpun Kesehatan (Kedokteran, Kesehatan Masyarakat, Farmasi, Keperawatan, Kebidanan) adalah jalan pengabdian kemanusiaan yang sangat mulia, Nak.\n\nMemang masa studinya cukup panjang, penuh praktek klinis terarah, dan butuh ketahanan belajar yang tangguh. Kabar baiknya, keterserapan lulusannya sangat cepat di berbagai rumah sakit, puskesmas, dan BPJS daerah.\n\nDi kampus terakreditasi unggul seperti Unismuh Makassar, Fakultas Kedokteran dan Ilmu Kesehatan dilengkapi dengan fasilitas mutakhir untuk membimbingmu yang data penjelajahannya bisa kamu lihat di [Eksplorasi Karir](eksplorasi)!";
+        }
+        else if (textLower.includes('sosiologi') || textLower.includes('sosial') || textLower.includes('hukum') || textLower.includes('psikologi') || textLower.includes('bk') || textLower.includes('konseling') || textLower.includes('guru') || textLower.includes('pendidikan')) {
+          reply = "Memilih ilmu sosial kemanusiaan seperti Sosiologi, Hukum, Keguruan, atau Psikologi/BK membuktikan bahwa kamu memiliki tingkat kepekaan empati (Social) yang tinggi, Nak.\n\nLulusan Psikologi sangat dibutuhkan oleh perusahaan di divisi HRD (Sumber Daya Manusia). Ilmu Hukum melindas karir advokat/jaksa yang andal. Sedangkan lulusan Keguruan dan BK sangat dibutuhkan sekolah dasar maupun menengah untuk membina generasi muda bangsa kita.\n\nDeskripsi fungsional dan rumpun karir ini bisa kamu lihat di [Eksplorasi Karir](eksplorasi).";
+        }
+        else if (textLower.includes('matematika') || textLower.includes('fisika') || textLower.includes('kimia') || textLower.includes('sains') || textLower.includes('peneliti') || textLower.includes('biologi')) {
+          reply = "Wah, menyukai disiplin ilmu eksak seperti Matematika, Fisika, Kimia, atau Biologi berarti tipe kognitifmu dominan pada dimensi Investigative (I), Nak!\n\nJangan khawatir hanya bisa menjadi guru akademis. Industri data analytics, aktuaris kerugian asuransi, analis risiko keuangan, dan laboratorium pangan farmasi sangat memburu lulusan sains murni karena tingkat kecerdasan logis mereka yang luar biasa yang detail gaji dan tugasnya terekam di [Eksplorasi Karir](eksplorasi).";
+        }
+        else if (textLower.includes('seni') || textLower.includes('gambar') || textLower.includes('desain') || textLower.includes('dkv') || textLower.includes('arsitektur') || textLower.includes('musik') || textLower.includes('lukis') || textLower.includes('kreatif') || textLower.includes('animasi')) {
+          reply = "Anugerah kreativitas estetikamu sangat indah, Nak! Dalam tipe Holland, kamu masuk ke tipe Artistic (A) kuat.\n\nMenempuh studi Desain Komunikasi Visual (DKV), Desain Interior, Arsitektur, atau Desain Game akan menggembleng kompetensimu menjadi animator 3D, UI/UX Designer, Creative Director, atau arsitek hebat dengan prospek gaji komparatif tinggi di industri digital seperti yang dicantumkan pada pustaka [Eksplorasi Karir](eksplorasi) saat ini.";
+        }
+        else if (textLower.includes('bisnis') || textLower.includes('manajemen') || textLower.includes('akuntansi') || textLower.includes('ekonomi') || textLower.includes('keuangan') || textLower.includes('bank') || textLower.includes('marketing') || textLower.includes('wirausaha') || textLower.includes('dagang')) {
+          reply = "Rumpun Bisnis dan Manajemen (Manajemen, Akuntansi, Kewirausahaan, Perpajakan) adalah motor penggerak dunia komersial maupun startup terkemuka, Nak.\n\nJika kamu orang dengan kecenderungan Enterprising (E) yang cakap bernegosiasi atau Conventional (C) yang teliti angka, rumpun ini sangat klop. Kamu akan diajarkan teknik perancangan bisnis taktis, pembukuan neraca fiskal, hingga evaluasi portofolio investasi. Cek daftar jurusannya di menu [Eksplorasi Karir](eksplorasi).";
+        }
+        else if (textLower.includes('pertanian') || textLower.includes('agribisnis') || textLower.includes('hutan') || textLower.includes('kebun') || textLower.includes('tani') || textLower.includes('pangan') || textLower.includes('tanaman')) {
+          reply = "Sektor pangan dan Agribisnis di Indonesia modern sudah tidak lagi sekadar bertani konvensional di sawah, Nak!\n\nJurusan Agribisnis mengajarkan manajemen bisnis pertanian skala besar, teknologi hidroponik cerdas, rekayasa genetika benih, hingga logistik ekspor pangan dunia. Prospek karir analis pangan atau konsultan agroindustri sangat luas serta mulia untuk ketahanan pangan kita. Penjajakannya bisa dinavigasi di menu [Eksplorasi Karir](eksplorasi).";
+        }
+        else if (textLower.includes('orang tua') || textLower.includes('ayah') || textLower.includes('ibu') || textLower.includes('mama') || textLower.includes('papa') || textLower.includes('setuju') || textLower.includes('dipaksa') || textLower.includes('keluarga') || textLower.includes('wali')) {
+          reply = "Ibu sangat mengerti, Nak. Keinginan orang tua yang berseberangan dengan impian pribadi memang memicu kegundahan batin yang amat melelahkan.\n\nNamun percayalah, sikap mereka semata-mata karena rasa sayang dan kekhawatiran atas kestabilan karirmu di masa depan.\n\nLangkah terbaik saat ini adalah berdiskusi tenang dengan tutur kata santun, asertif, tanpa defensif. Tunjukkan keseriusanmu dengan menunjukkan selembar print hasil penyelidikan [Tes Minat & Bakat](tes) bimbingan karir mandiri kita ini serta prospek gajinya di [Eksplorasi Karir](eksplorasi) sebagai argumen rasional, Nak!\n\nIbu juga siap mendampingi atau memediasi diskusi kalian jika dijadwalkan lewat [Form Bimbingan](konseling).";
+        }
+        else if (textLower.includes('beasiswa') || textLower.includes('ukt') || textLower.includes('biaya') || textLower.includes('uang') || textLower.includes('ekonomi') || textLower.includes('kip') || textLower.includes('gratis') || textLower.includes('kurang mampu')) {
+          reply = "Nak, dengarkan Ibu: keterbatasan ekonomi keluarga jangan pernah menyurutkan tekad muliamu mengejar pendidikan tinggi! Pintu beasiswa terbuka lebar bagi yang proaktif mencari informasi.\n\nAda beasiswa KIP-Kuliah dari Kemendikbud yang membebaskan UKT 100% dan memberimu uang saku tunai lumayan tiap semester. Ada juga beasiswa persyarikatan khusus di kampus Universitas Muhammadiyah Makassar (Unismuh), beasiswa tahfizh Quran, hingga bantuan kemitraan swasta.\n\nAyo kita diskusikan cara pendaftarannya bersama Ibu lewat permohonan bimbingan di [Form Bimbingan](konseling).";
+        }
+        else if (textLower.includes('minder') || textLower.includes('takut') || textLower.includes('cemas') || textLower.includes('gagal') || textLower.includes('stres') || textLower.includes('ragu') || textLower.includes('bingung') || textLower.includes('khawatir') || textLower.includes('bimbang') || textLower.includes('frustasi')) {
+          reply = "Sangat wajar dan sangat manusiawi jika kamu merasakan gejolak cemas, bingung, atau canggung menjelang masa kelulusan sekolah, Nak. Ini adalah penanda bahwa kamu sungguh-sungguh peduli dengan masa depanmu.\n\nJangan biarkan ketakutan melumpuhkan semangatmu. Langkah awal terbaik adalah isi [Tes Minat & Bakat](tes) di tab sebelah agar kamu memiliki pemetaan bakat diri secara jernih dan objektif.\n\nJika butuh mediasi khusus dengan orang tua atau diskusi mendalam, silakan jadwalkan bimbingan di [Form Bimbingan](konseling). Percayalah, kamu jauh lebih berpotensi daripada apa yang kamu duga, Nak!";
+        }
+        else if (textLower.includes('snbt') || textLower.includes('utbk') || textLower.includes('ujian') || textLower.includes('soal') || textLower.includes('tes tulis') || textLower.includes('belajar') || textLower.includes('tryout')) {
+          reply = "Menghadapi UTBK-SNBT membutuhkan ketekunan berlatih terstruktur, Nak.\n\nJangan hanya menghafal rumus cepat, tapi kuasai konsep dasarnya (terutama Tes Potensi Skolastik / Penalaran Umum / Literasi Bahasa). Ibu sarankan kamu menjadwalkan latihan mandiri 5-10 soal setiap harinya di sore hari, didukung evaluasi tryout berkala agar mental ujianmu terlatih prima. Detail seputar SNBT dan persiapan jurusan kuliah sasaranmu bisa kamu telisik di [Eksplorasi Karir](eksplorasi).";
+        }
+        else if (textLower.includes('snbp') || textLower.includes('seleksi raport') || textLower.includes('snmptn') || textLower.includes('raport') || textLower.includes('nilai')) {
+          reply = "Dalam seleksi jalur prestasi raport (SNBP), konsistensi nilai serta peringkat paralel di sekolah memegang peranan sangat vital, Nak.\n\nSelain itu, indeks reputasi sekolah serta keaktifanmu melampirkan sertifikat kejuaraan resmi skala kabupaten/provinsi/nasional sangat membantu panitia universitas menimbang kelulusanmu. Konsultasikan draf jurusan incaran SNBP-mu lewat [Form Bimbingan](konseling) ya.";
+        }
+        else if (textLower.includes('unismuh') || textLower.includes('muhammadiyah') || textLower.includes('makassar') || textLower.includes('kampus unismuh')) {
+          reply = "Universitas Muhammadiyah Makassar (Unismuh) adalah salah satu pilihan perguruan tinggi terbaik di Indonesia Timur, Nak!\n\nDi sana ada berbagai prodi andalan terfavorit berakreditasi unggul: Fakultas Kedokteran (yang memiliki kelengkapan klinis modern), Teknik Informatika, Sosiologi, Akuntansi, Administrasi Negara, hingga Pendidikan Guru, BK dan Matematika. Detail prospek kerja dan penjelajahan rumpun ini bisa kamu lirik di menu [Eksplorasi Karir](eksplorasi).\n\nUnismuh juga menyediakan porsi beasiswa persyarikatan dan beasiswa hafiz Al-Qur'an serta kemitraan yang luas yang sangat menopang mahasiswanya!";
+        }
+        else if (textLower.includes('kuliah') || textLower.includes('vokasi') || textLower.includes('diploma') || textLower.includes('kerja') || textLower.includes('prospek')) {
+          reply = "Kuliah jalur akademik (Sarjana) atau jalur vokasi (Diploma/D3/D4) itu sama bagusnya, Nak!\n\nPerbedaannya terletak pada fokus: Sarjana mempelajari banyak teori dasar riset analitis, sementara lulusan Vokasi dilatih dengan porsi praktek magang 70% sehingga lebih siap pakai di industri kerja cepat serap. Pilihlah rumpun yang paling selaras dengan rencana jangka panjangmu di [Eksplorasi Karir](eksplorasi).";
+        }
+        else if (textLower.includes('terima kasih') || textLower.includes('makasih') || textLower.includes('syukron') || textLower.includes('sip') || textLower.includes('oke') || textLower.includes('bagus') || textLower.includes('bantu') || textLower.includes('suwun')) {
+          reply = "Sama-sama, Nak! Sudah menjadi tugas Ibu di ruang BK membantumu meniti jembatan karir masa depanmu.\n\nJangan sungkan untuk berkonsultasi lagi atau mencetak hasil [Tes Minat & Bakat](tes)-mu ya. Ibu sangat bangga atas keberanianmu menceritakan beban pikiranmu. Sukses selalu untuk belajarmu, Nak!";
+        }
+        else {
+          reply = "Pertanyaan atau cerita yang luar biasa, Nak. Ibu sangat mengapresiasi keterbukaanmu membagikan kendala ini. Memetakan langkah masa depan memang membutuhkan kebijaksanaan.\n\nIbu menyarankan kamu meluangkan waktu 5 menit untuk mengisi [Tes Minat & Bakat](tes) di menu sebelah. Hasil skor dari tes itu akan menunjukkan kategori kepribadian dominanmu (Realistic, Investigative, Artistic, Social, Enterprising, atau Conventional), sehingga Ibu bisa meluncurkan rekomendasi program studi atau rumpun karir spesifik yang paling sesuai dengan talenta alamimu di menu [Eksplorasi Karir](eksplorasi), Nak. Bagaimana menurutmu?";
+        }
+        
+        chatHistoryGlobal.push({ sender: 'bk', text: reply });
+        renderChatLog();
+      }, 1000);
+    }
+
+    function parseMarkdownToHtml(text, isMe) {
+      if (!text) return "";
+      
+      // Escape HTML elements first to prevent XSS issues
+      let formatted = text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+
+      const lines = formatted.split("\n");
+      const parsedLines = lines.map(line => {
+        if (!line.trim()) {
+          return '<div class="h-1"></div>';
+        }
+
+        let isBullet = false;
+        let lineContent = line;
+        
+        if (line.trim().startsWith('* ')) {
+          isBullet = true;
+          lineContent = line.trim().substring(2);
+        } else if (line.trim().startsWith('- ')) {
+          isBullet = true;
+          lineContent = line.trim().substring(2);
+        } else if (/^\d+\.\s/.test(line.trim())) {
+          isBullet = true;
+          const match = line.trim().match(/^(\d+\.\s)(.*)/);
+          lineContent = match ? match[2] : line;
+        }
+
+        // Inline formatting: **bold** (replaces **word** with <strong>word</strong>)
+        lineContent = lineContent.replace(/\*\*(.*?)\*\*/g, (match, p1) => {
+          return `<strong class="font-bold ${isMe ? 'text-white' : 'text-slate-900'}">${p1}</strong>`;
+        });
+
+        // Inline formatting: [label](target)
+        lineContent = lineContent.replace(/\[(.*?)\]\((.*?)\)/g, (match, label, target) => {
+          const isInternal = ['eksplorasi', 'tes', 'test', 'konseling', 'bimbingan', 'beranda', 'dashboard'].includes(target);
+          let mappedTarget = target;
+          if (target === 'tes') mappedTarget = 'test';
+          if (target === 'konseling') mappedTarget = 'bimbingan';
+          if (target === 'beranda') mappedTarget = 'dashboard';
+
+          const classes = isMe 
+            ? "underline font-black cursor-pointer inline-block mx-0.5 px-2 py-0.5 rounded-lg text-[10px] bg-violet-700/50 hover:bg-violet-700 active:scale-95 transition-all text-white border border-violet-500/10" 
+            : "underline font-black cursor-pointer inline-block mx-0.5 px-2 py-0.5 rounded-lg text-[11px] bg-violet-50 hover:bg-violet-100 active:scale-95 transition-all text-violet-600 hover:text-violet-800 border border-violet-100/50";
+
+          if (isInternal) {
+            return `<span class="${classes}" onclick="switchTab('${mappedTarget}')">${label} ↗</span>`;
+          } else {
+            return `<a href="${target}" target="_blank" rel="noopener noreferrer" class="${classes}">${label} ↗</a>`;
+          }
+        });
+
+        if (isBullet) {
+          return `<div class="flex items-start space-x-2 my-1">
+            <span class="${isMe ? 'text-violet-200' : 'text-violet-500'} font-bold shrink-0 mt-1">•</span>
+            <div class="flex-1 leading-relaxed">${lineContent}</div>
+          </div>`;
+        }
+
+        return `<p class="leading-relaxed my-1">${lineContent}</p>`;
+      });
+
+      return parsedLines.join("");
+    }
+
+    function renderChatLog() {
+      const container = document.getElementById('chat-messages-container');
+      if (!container) return;
+      
+      container.innerHTML = '';
+      chatHistoryGlobal.forEach(msg => {
+        const isBk = msg.sender === 'bk';
+        const msgHtml = isBk ? `
+          <div class="flex items-start gap-2.5 max-w-[85%] animate-fade-in">
+            <div class="h-6 w-6 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center font-serif font-bold text-[10px] shrink-0 mt-0.5">BK</div>
+            <div class="bg-white border border-slate-100 rounded-2xl rounded-tl-none p-3 shadow-2xs text-xs text-left text-slate-700">
+              <div class="font-medium text-slate-700 leading-relaxed pr-1 whitespace-pre-wrap">${parseMarkdownToHtml(msg.text, false)}</div>
+            </div>
+          </div>
+        ` : `
+          <div class="flex items-start justify-end gap-2.5 max-w-[85%] ml-auto animate-fade-in">
+            <div class="bg-violet-600 text-white rounded-2xl rounded-tr-none p-3 shadow-2xs text-xs text-left">
+              <div class="font-medium leading-relaxed whitespace-pre-wrap">${parseMarkdownToHtml(msg.text, true)}</div>
+            </div>
+            <div class="h-6 w-6 rounded-full bg-violet-500 text-white flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">Saya</div>
+          </div>
+        `;
+        container.innerHTML += msgHtml;
+      });
+      
+      // Auto scroll to bottom
+      container.scrollTop = container.scrollHeight;
+    }
+
+
+    // ==============================================
+    // TAB 3: HOLLAND RIASEC QUIZ MODULE
+    // ==============================================
+    let currentQuizIndex = 0;
+    let quizScores = { 'Realistic': 0, 'Investigative': 0, 'Artistic': 0, 'Social': 0, 'Enterprising': 0, 'Conventional': 0 };
+    let quizRegInfo = { name: '', kelas: '', usia: 17 };
+    let totalQuestionsToUse = 12; // Recommended standard default
+    let activeQuizQuestions = [];
+
+    function setHtmlQuestionCount(num) {
+      totalQuestionsToUse = num;
+      
+      // Highlight exact active button, remove ring classes from others
+      document.querySelectorAll('.qc-btn').forEach(btn => {
+        btn.classList.remove('border-violet-500', 'ring-2', 'ring-violet-500/10', 'bg-violet-50', 'text-violet-900');
+        btn.classList.add('bg-white', 'border-slate-200', 'text-slate-705');
+      });
+      
+      const activeBtn = document.getElementById(`qc-${num}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-white', 'border-slate-200', 'text-slate-705');
+        activeBtn.classList.add('border-violet-500', 'ring-2', 'ring-violet-500/10', 'bg-violet-50', 'text-violet-900');
+      }
+    }
+
+    function startRiasecTest() {
+      const name = document.getElementById('test-name').value.trim();
+      const kelas = document.getElementById('test-kelas').value.trim();
+      const usia = parseInt(document.getElementById('test-usia').value) || 16;
+
+      if (!name || !kelas) {
+        alert("Mohon lengkapi seluruh identitas pengetesan terlebih dahulu, Nak.");
+        return;
+      }
+
+      quizRegInfo = { name, kelas, usia };
+      currentQuizIndex = 0;
+      quizScores = { 'Realistic': 0, 'Investigative': 0, 'Artistic': 0, 'Social': 0, 'Enterprising': 0, 'Conventional': 0 };
+
+      // Distribute questions evenly from categories
+      const categories = {
+        'Realistic': [], 'Investigative': [], 'Artistic': [], 'Social': [], 'Enterprising': [], 'Conventional': []
+      };
+      QUESTIONS_DB.forEach(q => {
+        if (categories[q.c]) {
+          categories[q.c].push(q);
+        }
+      });
+      
+      const countPerCat = Math.max(1, Math.min(4, totalQuestionsToUse / 6));
+      let selected = [];
+      Object.keys(categories).forEach(cat => {
+        const list = [...categories[cat]];
+        // Shuffle category list
+        for (let i = list.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [list[i], list[j]] = [list[j], list[i]];
+        }
+        // Take countPerCat
+        for (let k = 0; k < countPerCat; k++) {
+          if (list[k]) {
+            selected.push(list[k]);
+          }
+        }
+      });
+      
+      // Shuffle selected sequence
+      for (let i = selected.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [selected[i], selected[j]] = [selected[j], selected[i]];
+      }
+
+      activeQuizQuestions = selected;
+
+      document.getElementById('riasec-intro-pane').classList.add('hidden');
+      document.getElementById('riasec-quiz-pane').classList.remove('hidden');
+
+      displayQuestion();
+    }
+
+    function displayQuestion() {
+      const q = activeQuizQuestions[currentQuizIndex];
+      document.getElementById('quiz-progress-text').innerText = `Pertanyaan ${currentQuizIndex + 1} dari ${activeQuizQuestions.length}`;
+      document.getElementById('quiz-category-badge').innerText = `Kategori: ${q.c}`;
+      document.getElementById('quiz-question-text').innerText = `"${q.q}"`;
+
+      const progressPct = ((currentQuizIndex + 1) / activeQuizQuestions.length) * 100;
+      document.getElementById('quiz-progress-bar').style.width = `${progressPct}%`;
+    }
+
+    function answerQuestion(rating) {
+      const q = activeQuizQuestions[currentQuizIndex];
+      quizScores[q.c] += rating;
+
+      currentQuizIndex++;
+      if (currentQuizIndex < activeQuizQuestions.length) {
+        displayQuestion();
+      } else {
+        processQuizResults();
+      }
+    }
+
+    function processQuizResults() {
+      document.getElementById('riasec-quiz-pane').classList.add('hidden');
+      document.getElementById('riasec-loading-pane').classList.remove('hidden');
+
+      setTimeout(() => {
+        // Find dominant scale
+        let dominantType = 'Realistic';
+        let maxVal = -1;
+        for (const [k, v] of Object.entries(quizScores)) {
+          if (v > maxVal) {
+            maxVal = v;
+            dominantType = k;
+          }
+        }
+
+        // Convert max aggregate to scale 10 limits
+        let finalScores10 = {};
+        // Maximum score possible goes according to total questions divided by 6 sections
+        const questionsPerCategory = totalQuestionsToUse / 6;
+        const maxScorePerCategory = questionsPerCategory * 5;
+
+        for (const [k, v] of Object.entries(quizScores)) {
+          // If v is 0 (unvisited category), convert nicely to minimum 2
+          if (v <= 0) {
+            finalScores10[k] = 2;
+          } else {
+            const ratio = v / maxScorePerCategory;
+            const scaledValue = Math.round(ratio * 8) + 2; 
+            finalScores10[k] = Math.max(2, Math.min(scaledValue, 10));
+          }
+        }
+
+        const holData = RIASEC_MAP[dominantType];
+        const dateStr = new Date().toLocaleDateString("id-ID", {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
+        });
+
+        const testRecord = {
+          id: Math.random().toString(36).substring(2, 9),
+          name: quizRegInfo.name,
+          kelas: quizRegInfo.kelas,
+          usia: quizRegInfo.usia,
+          timestamp: dateStr,
+          scores: finalScores10,
+          report: {
+            primaryType: dominantType,
+            typeName: holData.typeName,
+            description: holData.description,
+            recommendedMajors: holData.recommendedMajors,
+            recommendedCareers: holData.recommendedCareers,
+            studyStrategy: holData.studyStrategy
+          }
+        };
+
+        // Store internally
+        DB_RIASEC.unshift(testRecord);
+        localStorage.setItem('DB_RIASEC', JSON.stringify(DB_RIASEC));
+
+        // Inject inside result element sheets
+        document.getElementById('res-ts-name').innerText = quizRegInfo.name;
+        document.getElementById('res-ts-kelas').innerText = quizRegInfo.kelas;
+        document.getElementById('res-ts-dominant-type').innerText = holData.typeName;
+        document.getElementById('res-ts-desc').innerText = holData.description;
+
+        // Render bar heights
+        for (const [k, v] of Object.entries(finalScores10)) {
+          document.getElementById(`bar-${k}`).style.height = `${v * 10}%`;
+          document.getElementById(`score-${k}`).innerText = `${v}/10`;
+        }
+
+        // Usulan majors
+        const majArea = document.getElementById('res-ts-majors');
+        majArea.innerHTML = '';
+        holData.recommendedMajors.forEach(m => {
+          majArea.innerHTML += `
+            <div class="p-3 bg-slate-50 border border-slate-100 rounded-xl">
+              <div class="text-xs font-bold text-slate-800">${m.name}</div>
+              <p class="text-[10px] text-slate-450 mt-0.5 font-normal leading-tight">${m.relevance}</p>
+            </div>
+          `;
+        });
+
+        // Usulan careers
+        const carArea = document.getElementById('res-ts-careers');
+        carArea.innerHTML = '';
+        holData.recommendedCareers.forEach(c => {
+          carArea.innerHTML += `
+            <div class="p-3 bg-slate-50 border border-slate-100 rounded-xl space-y-1">
+              <div class="flex justify-between items-start">
+                <span class="text-xs font-bold text-slate-800">${c.title}</span>
+                <span class="px-1.5 py-0.5 bg-indigo-50 text-indigo-750 text-indigo-700 rounded text-[9px] font-bold uppercase">${c.demand}</span>
+              </div>
+              <p class="text-[10px] text-slate-500 font-normal leading-tight">${c.description}</p>
+              <p class="text-[9px] text-slate-450 font-bold uppercase mt-1">Potensi Upah: ${c.salaryRange}</p>
+            </div>
+          `;
+        });
+
+        // Usulan strategies
+        const strArea = document.getElementById('res-ts-strategies');
+        strArea.innerHTML = '';
+        holData.studyStrategy.forEach(s => {
+          strArea.innerHTML += `
+            <div class="p-3 bg-slate-50 border border-slate-100 rounded-xl text-xs font-medium text-slate-650 flex items-start gap-1">
+              <span>📌</span>
+              <span class="pl-1">${s}</span>
+            </div>
+          `;
+        });
+
+        document.getElementById('riasec-loading-pane').classList.add('hidden');
+        document.getElementById('riasec-result-pane').classList.remove('hidden');
+        
+        lucide.createIcons();
+      }, 2000);
+    }
+
+    function CalculatedScale10(scoreSum) {
+      // Linear scaling: 5 questions * 5 max points = 25 points. 5 points min.
+      // Scaling formula converts [5, 25] bounds gracefully onto [2, 10] scale.
+      const raw = Math.round(((scoreSum - 5) / 20) * 8) + 2;
+      return Math.max(2, Math.min(raw, 10));
+    }
+
+    function resetRiasecTest() {
+      document.getElementById('test-name').value = '';
+      document.getElementById('test-kelas').value = '';
+      document.getElementById('test-usia').value = '';
+
+      document.getElementById('riasec-result-pane').classList.add('hidden');
+      document.getElementById('riasec-intro-pane').classList.remove('hidden');
+    }
+
+
+    // ==============================================
+    // TAB 5: PANEL GURU BK ACCREDITED AREA
+    // ==============================================
+    let currentSubMonitor = 'counseling';
+    let currentMonitorSearch = '';
+
+    function authenticateTeacher(event) {
+      event.preventDefault();
+      const pass = document.getElementById('teacher-pass').value.trim();
+      const err = document.getElementById('auth-error-msg');
+
+      if (pass === 'ilma123') {
+        err.classList.add('hidden');
+        document.getElementById('bk-auth-section').classList.add('hidden');
+        document.getElementById('bk-dashboard-section').classList.remove('hidden');
+        
+        renderBkRecords();
+      } else {
+        err.classList.remove('hidden');
+      }
+    }
+
+    function renderBkRecords() {
+      // Recount entries from local databases
+      const counselingCount = DB_COUNSELING.length;
+      const testCount = DB_RIASEC.length;
+
+      document.getElementById('stat-counseling-count').innerText = counselingCount;
+      document.getElementById('stat-test-count').innerText = testCount;
+
+      const uniqueNames = new Set([...DB_COUNSELING.map(c => c.name), ...DB_RIASEC.map(r => r.name)]);
+      document.getElementById('stat-unique-count').innerText = uniqueNames.size;
+
+      // Filter and render tables
+      filterMonitorRecords();
+    }
+
+    function switchSubMonitor(type) {
+      currentSubMonitor = type;
+      
+      const cBtn = document.getElementById('sub-monitor-counseling-btn');
+      const rBtn = document.getElementById('sub-monitor-riasec-btn');
+      const cArea = document.getElementById('sub-monitor-counseling-area');
+      const rArea = document.getElementById('sub-monitor-riasec-area');
+
+      if (type === 'counseling') {
+        cBtn.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center space-x-1.5 bg-white text-slate-800 shadow-xs";
+        rBtn.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center space-x-1.5 text-slate-500 hover:text-slate-700";
+        cArea.classList.remove('hidden');
+        rArea.classList.add('hidden');
+      } else {
+        rBtn.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center space-x-1.5 bg-white text-slate-800 shadow-xs";
+        cBtn.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center space-x-1.5 text-slate-500 hover:text-slate-700";
+        rArea.classList.remove('hidden');
+        cArea.classList.add('hidden');
+      }
+
+      filterMonitorRecords();
+    }
+
+    function filterMonitorRecords() {
+      const qInput = document.getElementById('monitor-search-input').value.trim().toLowerCase();
+      
+      if (currentSubMonitor === 'counseling') {
+        const list = DB_COUNSELING.filter(c => 
+          c.name.toLowerCase().includes(qInput) || 
+          c.kelas.toLowerCase().includes(qInput) ||
+          c.curhat.toLowerCase().includes(qInput)
+        );
+
+        const tbody = document.getElementById('monitor-counseling-tbody');
+        tbody.innerHTML = '';
+        
+        if (list.length === 0) {
+          document.getElementById('monitor-counseling-empty').classList.remove('hidden');
+        } else {
+          document.getElementById('monitor-counseling-empty').classList.add('hidden');
+          list.forEach(item => {
+            const row = document.createElement('tr');
+            row.className = "border-b border-slate-50 hover:bg-slate-50/50 transition-colors text-xs text-slate-700";
+            row.innerHTML = `
+              <td class="py-3.5 pl-2 font-medium text-slate-400 whitespace-nowrap">${item.timestamp.split(', ')[1] || item.timestamp}</td>
+              <td class="py-3.5 font-extrabold text-slate-850">${item.name}</td>
+              <td class="py-3.5"><span class="px-2 py-0.5 bg-slate-150 bg-slate-100 rounded text-slate-600 text-4xs font-bold">${item.kelas}</span></td>
+              <td class="py-3.5 max-w-xs truncate pr-4 text-slate-500">${item.curhat}</td>
+              <td class="py-3.5 text-right pr-2">
+                <button onclick="openCounselingDetail('${item.id}')" class="px-3 py-1.5 bg-violet-50 hover:bg-violet-100 text-violet-700 font-extrabold text-4xs rounded-lg transition-all cursor-pointer whitespace-nowrap">
+                  Kaji Kasus •>
+                </button>
+              </td>
+            `;
+            tbody.appendChild(row);
+          });
+        }
+      } else {
+        const list = DB_RIASEC.filter(r => 
+          r.name.toLowerCase().includes(qInput) || 
+          r.kelas.toLowerCase().includes(qInput) ||
+          r.report.primaryType.toLowerCase().includes(qInput)
+        );
+
+        const tbody = document.getElementById('monitor-riasec-tbody');
+        tbody.innerHTML = '';
+
+        if (list.length === 0) {
+          document.getElementById('monitor-riasec-empty').classList.remove('hidden');
+        } else {
+          document.getElementById('monitor-riasec-empty').classList.add('hidden');
+          list.forEach(item => {
+            const row = document.createElement('tr');
+            row.className = "border-b border-slate-50 hover:bg-slate-50/50 transition-colors text-xs text-slate-700";
+            row.innerHTML = `
+              <td class="py-3.5 pl-2 font-medium text-slate-400 whitespace-nowrap">${item.timestamp.split(', ')[1] || item.timestamp}</td>
+              <td class="py-3.5 font-extrabold text-slate-850">${item.name}</td>
+              <td class="py-3.5"><span class="px-2 py-0.5 bg-slate-100 rounded text-slate-600 text-4xs font-bold">${item.kelas}</span></td>
+              <td class="py-3.5 font-bold text-indigo-750 text-indigo-700">🎯 ${item.report.primaryType}</td>
+              <td class="py-3.5 font-mono text-[10px] space-x-1">
+                ${Object.entries(item.scores).map(([k,v]) => `<span class="px-1 border border-slate-200/50 rounded bg-slate-50">${k[0]}:${v}</span>`).join('')}
+              </td>
+              <td class="py-3.5 text-right pr-2">
+                <button onclick="openRiasecDetail('${item.id}')" class="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-extrabold text-4xs rounded-lg transition-all cursor-pointer whitespace-nowrap">
+                  Kaji Peta •>
+                </button>
+              </td>
+            `;
+            tbody.appendChild(row);
+          });
+        }
+      }
+    }
+
+    // Modal Control triggers
+    function openCounselingDetail(id) {
+      const item = DB_COUNSELING.find(c => c.id === id);
+      if (!item) return;
+
+      document.getElementById('md-c-name').innerText = item.name;
+      document.getElementById('md-c-kelas').innerText = `${item.kelas} (${item.usia} Th)`;
+      document.getElementById('md-c-date').innerText = item.timestamp;
+      document.getElementById('md-c-message').innerText = `"${item.curhat}"`;
+      document.getElementById('md-c-analysis').innerText = item.aiResponse.analysis;
+      document.getElementById('md-c-guidance').innerText = `"${item.aiResponse.guidance}"`;
+
+      const stepsDiv = document.getElementById('md-c-steps');
+      stepsDiv.innerHTML = '';
+      item.aiResponse.actionPlan.forEach(s => {
+        stepsDiv.innerHTML += `<p class="p-2 bg-slate-50 rounded-xl mb-1.5 font-medium">📌 ${s}</p>`;
+      });
+
+      const sectorsDiv = document.getElementById('md-c-sectors');
+      sectorsDiv.innerHTML = '';
+      item.aiResponse.recommendedSectors.forEach(s => {
+        sectorsDiv.innerHTML += `<span class="px-2.5 py-1.5 bg-violet-50 text-violet-850 border border-violet-100 text-4xs font-bold rounded-xl mb-1 flex items-center gap-1">💼 ${s}</span>`;
+      });
+
+      openModal('modal-counseling');
+    }
+
+    function openRiasecDetail(id) {
+      const item = DB_RIASEC.find(r => r.id === id);
+      if (!item) return;
+
+      document.getElementById('md-r-name').innerText = item.name;
+      document.getElementById('md-r-kelas').innerText = `${item.kelas} (${item.usia} Th)`;
+      document.getElementById('md-r-date').innerText = item.timestamp;
+      document.getElementById('md-r-dominant').innerText = item.report.primaryType;
+      document.getElementById('md-r-desc').innerText = item.report.description;
+
+      // Render chart inside modal
+      const barContainer = document.getElementById('md-r-bars-container');
+      barContainer.innerHTML = '';
+      for (const [k, v] of Object.entries(item.scores)) {
+        const isDominant = k === item.report.primaryType;
+        barContainer.innerHTML += `
+          <div class="p-2 rounded-xl text-center border flex flex-col items-center justify-between ${isDominant ? 'bg-indigo-50 border-indigo-200' : 'bg-slate-50/50 border-slate-100'}">
+            <span class="text-[10px] font-bold text-slate-700">${k[0]}</span>
+            <div class="relative w-1.5 bg-slate-200 rounded-full h-10 mt-1 flex items-end overflow-hidden">
+              <div class="w-full ${isDominant ? 'bg-indigo-500' : 'bg-slate-400'}" style="height: ${v * 10}%"></div>
+            </div>
+            <span class="text-[10px] font-black mt-1 ${isDominant ? 'text-indigo-700' : 'text-slate-650'}">${v}/10</span>
+          </div>
+        `;
+      }
+
+      // Majors list
+      const majorsArea = document.getElementById('md-r-majors');
+      majorsArea.innerHTML = '';
+      item.report.recommendedMajors.forEach(m => {
+        majorsArea.innerHTML += `
+          <div class="p-2 bg-slate-50 border border-slate-100 rounded-xl mb-2">
+            <div class="text-xs font-bold text-slate-755">${m.name}</div>
+            <p class="text-[10px] text-slate-450 font-normal leading-relaxed mt-0.5">${m.relevance}</p>
+          </div>
+        `;
+      });
+
+      // Careers list
+      const careersArea = document.getElementById('md-r-careers');
+      careersArea.innerHTML = '';
+      item.report.recommendedCareers.forEach(c => {
+        careersArea.innerHTML += `
+          <div class="p-2 bg-slate-50 border border-slate-100 rounded-xl mb-2">
+            <div class="flex justify-between items-start">
+              <span class="text-xs font-bold text-slate-800">${c.title}</span>
+              <span class="px-1 py-0.5 bg-indigo-50 text-indigo-700 rounded text-5xs font-bold">${c.demand}</span>
+            </div>
+            <p class="text-[10px] text-slate-500 font-normal leading-relaxed mt-0.5">${c.description}</p>
+            <p class="text-[9px] text-slate-450 font-semibold uppercase mt-0.5">Pendapatan: ${c.salaryRange}</p>
+          </div>
+        `;
+      });
+
+      // Tips list
+      const tipsArea = document.getElementById('md-r-strategies');
+      tipsArea.innerHTML = '';
+      item.report.studyStrategy.forEach(s => {
+        tipsArea.innerHTML += `
+          <div class="p-3 bg-slate-50 rounded-xl text-xs font-medium text-slate-650 flex items-start gap-1">
+            <span>📌</span>
+            <span class="pl-1">${s}</span>
+          </div>
+        `;
+      });
+
+      openModal('modal-riasec');
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    function clearLocalDb() {
+      const check = confirm("Apakah Ibu Ilma yakin ingin membersihkan data seluruh pengisian di perangkat ini? Tindakan ini bersifat permanen.");
+      if (check) {
+        DB_COUNSELING = [];
+        DB_RIASEC = [];
+        localStorage.setItem('DB_COUNSELING', '[]');
+        localStorage.setItem('DB_RIASEC', '[]');
+        
+        renderBkRecords();
+        alert("Semua data di simpanan LocalStorage berhasil diriset.");
+      }
+    }
+  </script>
+</body>
+</html>
